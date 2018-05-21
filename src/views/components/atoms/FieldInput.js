@@ -5,10 +5,11 @@ import { FormLabel, FormInput,
 import colors                         from '*/views/components/atoms/Colors'
 
 const FieldInput = ({ input, secureTextEntry, label, required, placeholder,
-  children, disabled, autoCapitalize, style, className, meta: { touched, visited, error, warning } }) => {
+  children, disabled, autoCapitalize, style, className, multiline, meta: { touched, visited, error, warning } }) => {
 
   const capatalize = autoCapitalize || 'words'
-
+  const is_multiline = multiline || false
+  
   return (
     <View style={style}>
       <FormLabel
@@ -20,6 +21,7 @@ const FieldInput = ({ input, secureTextEntry, label, required, placeholder,
         {...input}
         autoCapitalize={capatalize}
         id={input.name}
+        multiline={is_multiline}
         secureTextEntry={secureTextEntry}
         placeholder={placeholder}
         containerStyle={{marginLeft: 0, marginRight: 0}}>

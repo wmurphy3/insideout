@@ -24,11 +24,7 @@ export default class Register extends Component {
     return (
       <KeyboardAwareScrollView style={style.mainBackground}>
         <Card
-          containerStyle={style.container}
-          image={require('*/views/assets/logo.png')}
-          imageWrapperStyle={{paddingHorizontal: 20}}
-          imageStyle={{'maxHeight': 100}}
-          imageProps={{resizeMode: "contain"}} >
+          containerStyle={style.container} >
 
             <Field
               name="email"
@@ -39,6 +35,17 @@ export default class Register extends Component {
             <Field
               name="name"
               placeholder="Name"
+              component={FieldInput} />
+
+            <Field
+              name="description"
+              multiline = {true}
+              placeholder="Description"
+              component={FieldInput} />
+
+            <Field
+              name="age"
+              placeholder="Age"
               component={FieldInput} />
 
             <Field
@@ -60,7 +67,7 @@ export default class Register extends Component {
             buttonStyle={style.button} />
 
           <Text style={style.link}>Already have an account? <Text onPress={() => this.goToLogin()} style={style.login_link}>Login</Text></Text>
-
+          <Text style={style.link}>* Don't forget to add more to your profile once you register</Text>
         </Card>
       </KeyboardAwareScrollView>
     );

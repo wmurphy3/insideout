@@ -54,50 +54,12 @@ class DrawerContainer extends React.Component {
             title={"Dashboard"}
             onPress={() => this._pop('Dashboard')}
             leftIcon={{name: "home"}} />
-          <ListItem
-            title="Make a Payment"
-            onPress={() => this._pop('PaymentNew')}
-            leftIcon={{name: "attach-money"}} />
-          <ListItem
-            title="Recurring Payment"
-            onPress={() => this._pop('RecurringPayments')}
-            leftIcon={{name: "autorenew"}} />
-          <ListItem
-            title="Payment Accounts"
-            onPress={() => this._pop('PayAccounts')}
-            leftIcon={{name: "account-balance-wallet"}} />
-          <ListItem
-            title="Payment History"
-            onPress={() => this._pop('PaymentHistory')}
-            leftIcon={{name: "history"}} />
-          <ListItem
-            title="Documents"
-            onPress={() => this._pop('Documents')}
-            leftIcon={{name: "description"}} />
+
           <ListItem
             title="Profile"
             rightIcon={{name: (this.state.toggle_profile ? 'keyboard-arrow-down':'chevron-right')}}
             onPress={() => this.showProfile()}
             leftIcon={{name: "person"}} />
-          {this.state.toggle_profile &&
-            <ListItem
-              title="User Information"
-              containerStyle={styles.child}
-              onPress={() => this._pop('Profile')}
-              leftIcon={{name: "info"}} />
-            }
-          {this.state.toggle_profile &&
-            <ListItem
-              title="Alert Preferences"
-              containerStyle={styles.child}
-              onPress={() => this._pop('EditProfilePreferences')}
-              leftIcon={{name: "notifications"}} />
-            }
-
-          <ListItem
-            title="Message Center"
-            onPress={() => this._pop('Notifications')}
-            leftIcon={{name: "notifications"}} />
 
           <ListItem
             title="Logout"

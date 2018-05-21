@@ -95,7 +95,7 @@ function* registeredFlow(action) {
     yield put(setUser(user))
 
     NavigatorService.navigate('loginStack')
-    displaySuccess('Succesfully registerd, a confirmation email has been sent')
+    displaySuccess('Succesfully registerd')
   } catch (error) {
     yield put(registerError(error))
     displayError(JSON.parse(error.errors))
@@ -176,16 +176,16 @@ function* loginWatcher () {
         signout: take(USER_UNSET)
       })
 
-      if (expired) {
-        token = yield call(refresh, token)
-        if(!token) {
-          userSignedOut = true
-          yield call(logout)
-        }
-      } else {
-        userSignedOut = true
-        yield call(logout)
-      }
+      // if (expired) {
+      //   token = yield call(refresh, token)
+      //   if(!token) {
+      //     userSignedOut = true
+      //     yield call(logout)
+      //   }
+      // } else {
+      //   userSignedOut = true
+      //   yield call(logout)
+      // }
 
     }
   }
