@@ -56,6 +56,11 @@ class DrawerContainer extends React.Component {
             leftIcon={{name: "home"}} />
 
           <ListItem
+            title={"Matches"}
+            onPress={() => this._pop('Matches')}
+            leftIcon={{name: "favorite"}} />
+
+          <ListItem
             title="Profile"
             rightIcon={{name: (this.state.toggle_profile ? 'keyboard-arrow-down':'chevron-right')}}
             onPress={() => this.showProfile()}

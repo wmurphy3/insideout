@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getPeople: () => dispatch(getPeople()),
+    getPeople: (location) => dispatch(getPeople(location)),
     createMatch: (user_id) => dispatch(createMatch(user_id)),
     declineMatch: (user_id) => dispatch(declineMatch(user_id))
   }

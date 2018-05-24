@@ -4,7 +4,17 @@ import { REACT_APP_API_URL }                            from 'react-native-doten
 const ENDPOINT = `${REACT_APP_API_URL}/matches`;
 
 export default {
+  getMatches: (token) => {
 
+    return fetch(ENDPOINT, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token || undefined}`,
+      }
+    })
+    .then(resp => getResponseData(resp))
+  },
   createMatch: (token, user_id) => {
     return fetch(ENDPOINT, {
       method: 'POST',

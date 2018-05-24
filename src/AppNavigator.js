@@ -9,6 +9,8 @@ import Login                  from '*/views/containers/Login'
 import ForgotPassword         from '*/views/containers/ForgotPassword'
 import Register               from '*/views/containers/Register'
 import Dashboard              from '*/views/containers/Dashboard'
+import Matches                from '*/views/containers/Matches'
+import Message                from '*/views/containers/Message'
 
 import Menu                   from '*/views/components/atoms/Menu'
 import colors                 from '*/views/components/atoms/Colors'
@@ -55,6 +57,7 @@ const drawerButton = (navigation) =>
 
 const DrawerStack = DrawerNavigator({
   Dashboard:  { screen: Dashboard },
+  Matches:    { screen: Matches },
   Login:      { screen: Login },
 }, {
   gesturesEnabled: false,
@@ -81,10 +84,31 @@ const goBackButton = (url) =>
     color="#fff"
     onPress={ () => NavigatorService.navigate(url) }  />
 
+// Recurring
+const MessageStack = DrawerNavigator({
+  Message: { screen: Message }
+}, {
+  gesturesEnabled: false
+})
+
+const MessageNavigation = StackNavigator({
+  MessageStack: { screen: MessageStack },
+}, {
+  headerMode: 'screen',
+  navigationOptions: ({navigation}, header) => ({
+    headerStyle: {backgroundColor: colors.main},
+    headerTintColor: 'white',
+    gesturesEnabled: false,
+    headerLeft: goBackButton('Matches'),
+    ...header,
+  })
+})
+
 // Master stack
 export default StackNavigator({
   loginStack: { screen: LoginStack },
   drawerStack: { screen: DrawerNavigation },
+  MessageStack: { screen: MessageNavigation}
 }, {
   // Default config for all screens
   headerMode: 'none',

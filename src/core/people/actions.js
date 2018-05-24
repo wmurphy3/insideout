@@ -2,8 +2,9 @@ import {
   PEOPLE_REQUESTED, PEOPLE_REQUESTED_SUCCESS, PEOPLE_REQUESTED_ERROR,
 } from './constants'
 
-export const getPeople = () => ({
-  type: PEOPLE_REQUESTED
+export const getPeople = (location) => ({
+  type: PEOPLE_REQUESTED,
+  location
 })
 
 export const getPeopleSuccess = (data) => ({

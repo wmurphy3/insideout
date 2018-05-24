@@ -8,6 +8,7 @@ import NavigatorService      from '*/utils/navigator'
 import style                 from './style'
 import colors                from '*/views/components/atoms/Colors'
 import Swiper                from 'react-native-deck-swiper'
+import { Constants, Location, Permissions } from 'expo'
 
 export default class DashboardScreen extends Component {
   static navigationOptions = ({navigation}) => {
@@ -21,8 +22,21 @@ export default class DashboardScreen extends Component {
   }
 
   componentWillMount() {
-    this.props.getPeople()
+    this._getLocationAsync()
   }
+
+  _getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      // TODO show error
+      this.setState({
+        errorMessage: 'Permission to access location was denied',
+      });
+    } else {
+      let location = await Location.getCurrentPositionAsync({})
+      this.props.getPeople(location)
+    }
+  };
 
   renderCard = card => {
     return (

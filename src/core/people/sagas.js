@@ -10,9 +10,9 @@ import NavigatorService                     from '*/utils/navigator'
 
 function* peopleRequestedFlow(action) {
   try {
+    const { location } = action
     const token = yield select(getAccessToken)
-    const data = yield call(api.getPeople, token)
-    console.log(data)
+    const data = yield call(api.getPeople, token, location)
     yield put(getPeopleSuccess(data))
 
   } catch (error) {

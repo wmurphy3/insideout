@@ -1,13 +1,25 @@
 import { all, takeLatest, fork, call, put, select } from 'redux-saga/effects'
 import {
-  matchCreateSuccess, matchCreateError,
+  matchCreateSuccess, matchCreateError, getMatchesSuccess, getMatchesError
 } from './actions'
 import {
-  MATCH_CREATED, MATCH_DECLINE_CREATED
+  MATCH_CREATED, MATCH_DECLINE_CREATED, MATCHES_REQUESTED, MATCHES_REQUESTED_SUCCESS,
+  MATCHES_REQUESTED_ERROR
 } from './constants'
 import { getAccessToken }                   from '*/core/user'
 import api                                  from './api'
 import NavigatorService                     from '*/utils/navigator'
+
+function* matchesRequestedFlow(action) {
+  try {
+    const token = yield select(getAccessToken)
+    const data = yield call(api.getMatches, token)
+    yield put(getMatchesSuccess(data))
+
+  } catch (error) {
+    yield put(getMatchesError(error))
+  }
+}
 
 function* matchCreatedFlow(action) {
   try {
@@ -42,7 +54,8 @@ function* matchDeclineCreatedFlow(action) {
 function* matchWatcher() {
   yield all([
     takeLatest(MATCH_CREATED, matchCreatedFlow),
-    takeLatest(MATCH_DECLINE_CREATED, matchDeclineCreatedFlow)
+    takeLatest(MATCH_DECLINE_CREATED, matchDeclineCreatedFlow),
+    takeLatest(MATCHES_REQUESTED, matchesRequestedFlow)
   ])
 }
 

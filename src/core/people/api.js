@@ -4,9 +4,8 @@ import { REACT_APP_API_URL }          from 'react-native-dotenv'
 const ENDPOINT = `${REACT_APP_API_URL}/people`;
 
 export default {
-  getPeople: (token) => {
-
-    return fetch(ENDPOINT, {
+  getPeople: (token, location) => {
+    return fetch(`${ENDPOINT}?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
