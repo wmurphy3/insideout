@@ -1,13 +1,11 @@
 import React, { Component }  from 'react'
-import { AppRegistry, Text, View, ScrollView, StyleSheet } from 'react-native'
-import { Col, Row, Grid }    from 'react-native-easy-grid';
+import { Text, View, ScrollView } from 'react-native'
 import moment                from 'moment'
 import Spinner               from '*/views/components/atoms/Spinner'
-import { Button }            from 'react-native-elements'
+import { List, ListItem }    from 'react-native-elements'
 import NavigatorService      from '*/utils/navigator'
 import style                 from './style'
 import colors                from '*/views/components/atoms/Colors'
-import Swiper                from 'react-native-deck-swiper'
 import { Constants, Location, Permissions } from 'expo'
 
 export default class DashboardScreen extends Component {
@@ -38,30 +36,15 @@ export default class DashboardScreen extends Component {
     }
   };
 
-  renderCard = card => {
-    return (
-      <View style={style.card}>
-        <Text>{card.name}</Text>
-        <Text>{card.age}</Text>
-        <Text>{card.description}</Text>
-      </View>
-    )
-  }
-
-  swipedAll = () => {
-
-  }
-
-  swipedLeft = (index) => {
-    let user = this.props.people.data[index]
-    this.props.declineMatch(user.id)
-  }
-
+  // TODO will need to happen on message screen or in the backend when a message is sent
   swipedRight= (index) => {
     let user = this.props.people.data[index]
     this.props.createMatch(user.id)
   }
 
+  goToProfile = (id) => {
+    NavigatorService.navigate('ProfileStack', {id: id})
+  }
 
   render() {
     const { people } = this.props
@@ -70,19 +53,20 @@ export default class DashboardScreen extends Component {
       return (<Spinner />)
 
     return (
-      <View style={style.container}>
-      <Swiper
-          cards={people.data}
-          renderCard={this.renderCard}
-          onSwipedLeft={this.swipedLeft}
-          onSwipedRight={this.swipedRight}
-          onSwipedAll={this.swipedAll}
-          cardIndex={0}
-          stackSize={3}
-          verticalSwipe={false}
-          backgroundColor={'#4FD0E9'}>
-      </Swiper>
-    </View>
+      <List containerStyle={{marginBottom: 20, marginTop: 0}}>
+        {people.data.map((p, i) => (
+          <ListItem
+            key={p.id}
+            title={`${p.name} - ${p.age}`}
+            onPress={() => this.goToProfile(i)}
+            subtitle={
+              <View style={style.container}>
+                <Text numberOfLines={2} style={style.text}>{p.description}</Text>
+              </View>
+            }
+          />
+        ))}
+      </List>
     );
   }
 }

@@ -1,10 +1,11 @@
 import {
-  PEOPLE_REQUESTED, PEOPLE_REQUESTED_SUCCESS, PEOPLE_REQUESTED_ERROR,
+  PEOPLE_REQUESTED, PEOPLE_REQUESTED_SUCCESS, PEOPLE_REQUESTED_ERROR
 } from './constants'
 import { cloneDeep } from 'lodash'
 
 const initial = {
   data: [],
+  person: {},
   loading: false,
 }
 

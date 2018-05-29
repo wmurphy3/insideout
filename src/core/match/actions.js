@@ -1,6 +1,6 @@
 import {
   MATCH_CREATED, MATCH_CREATED_SUCCESS, MATCH_CREATED_ERROR,
-  MATCH_DECLINE_CREATED, MATCHES_REQUESTED, MATCHES_REQUESTED_SUCCESS,
+  MATCHES_REQUESTED, MATCHES_REQUESTED_SUCCESS,
   MATCHES_REQUESTED_ERROR
 } from './constants'
 
@@ -31,9 +31,4 @@ export const matchCreateSuccess = (data) => ({
 export const matchCreateError = (error) => ({
   type: MATCH_CREATED_ERROR,
   error
-})
-
-export const declineMatch = (user_id) => ({
-  type: MATCH_DECLINE_CREATED,
-  user_id: user_id
 })

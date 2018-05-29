@@ -29,7 +29,6 @@ export default class MessageScreen extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.messages.data)
     this.setState({
       messages: nextProps.messages.data
     })

@@ -62,8 +62,7 @@ class DrawerContainer extends React.Component {
 
           <ListItem
             title="Profile"
-            rightIcon={{name: (this.state.toggle_profile ? 'keyboard-arrow-down':'chevron-right')}}
-            onPress={() => this.showProfile()}
+            onPress={() => this._pop('Profile')}
             leftIcon={{name: "person"}} />
 
           <ListItem

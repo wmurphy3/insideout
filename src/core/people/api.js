@@ -13,6 +13,6 @@ export default {
       }
     })
     .then(resp => getResponseData(resp))
-  },
+  }
 
 }

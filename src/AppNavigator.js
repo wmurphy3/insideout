@@ -11,6 +11,9 @@ import Register               from '*/views/containers/Register'
 import Dashboard              from '*/views/containers/Dashboard'
 import Matches                from '*/views/containers/Matches'
 import Message                from '*/views/containers/Message'
+import UserProfile            from '*/views/containers/UserProfile'
+import Profile                from '*/views/containers/Profile'
+import EditProfile            from '*/views/containers/EditProfile'
 
 import Menu                   from '*/views/components/atoms/Menu'
 import colors                 from '*/views/components/atoms/Colors'
@@ -59,6 +62,7 @@ const DrawerStack = DrawerNavigator({
   Dashboard:  { screen: Dashboard },
   Matches:    { screen: Matches },
   Login:      { screen: Login },
+  Profile:     { screen: Profile }
 }, {
   gesturesEnabled: false,
   contentComponent: Menu
@@ -104,11 +108,51 @@ const MessageNavigation = StackNavigator({
   })
 })
 
+const ProfileStack = DrawerNavigator({
+  UserProfile: { screen: UserProfile }
+}, {
+  gesturesEnabled: false
+})
+
+const ProfileNavigation = StackNavigator({
+  ProfileStack: { screen: ProfileStack },
+}, {
+  headerMode: 'screen',
+  navigationOptions: ({navigation}, header) => ({
+    headerStyle: {backgroundColor: colors.main},
+    headerTintColor: 'white',
+    gesturesEnabled: false,
+    headerLeft: goBackButton('DrawerStack'),
+    ...header,
+  })
+})
+
+const EditProfileStack = DrawerNavigator({
+  EditProfile: { screen: EditProfile }
+}, {
+  gesturesEnabled: false
+})
+
+const EditProfileNavigation = StackNavigator({
+  EditProfileStack: { screen: EditProfileStack }
+}, {
+  headerMode: 'screen',
+  navigationOptions: ({navigation}, header) => ({
+    headerStyle: {backgroundColor: colors.main},
+    headerTintColor: 'white',
+    gesturesEnabled: false,
+    headerLeft: goBackButton('Profile'),
+    ...header,
+  })
+})
+
 // Master stack
 export default StackNavigator({
   loginStack: { screen: LoginStack },
   drawerStack: { screen: DrawerNavigation },
-  MessageStack: { screen: MessageNavigation}
+  MessageStack: { screen: MessageNavigation },
+  ProfileStack: { screen: ProfileNavigation },
+  EditProfileStack: { screen: EditProfileNavigation }
 }, {
   // Default config for all screens
   headerMode: 'none',

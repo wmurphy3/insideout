@@ -59,19 +59,11 @@ export const userReducer = (state = initial, action) => {
         ...state,
         loading: false,
         email: action.data.email,
-        phone: action.data.phone,
         name: action.data.name,
-        home_phone: action.data.home_phone,
-        username: action.data.username,
-        address_line1: action.data.address.address_line1,
-        address_line2: action.data.address.address_line2,
-        city: action.data.address.city,
-        state: action.data.address.state,
-        zip: action.data.address.zip
       }
 
     case USER_UPDATED_ERROR:
-      return { ...state, error : action.error }
+      return { ...state, error : action.error, loading: false }
 
     case SEND_RECOVERY_EMAIL:
       return { ...state, loading: false }

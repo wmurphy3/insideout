@@ -36,10 +36,6 @@ const removeAuthToken = () => {
   AsyncStorage.removeItem('token')
 }
 
-const setCache = (key, value) => {
-  SecureStore.setItemAsync(key, value);
-}
-
 function* logout () {
   yield call(removeAuthToken)
   yield put(unsetUser())

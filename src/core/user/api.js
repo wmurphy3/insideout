@@ -31,6 +31,17 @@ export default {
         'Content-Type': 'application/json'
       }
     }).then(resp => getResponseData(resp))
-  }
+  },
+
+  userUpdate: (token, user, id) => {
+    return fetch(`${ENDPOINT}/${id}`, {
+      method: 'PATCH',
+      body: buildBody("user", user),
+      headers: {
+        Authorization: `Bearer ${token || undefined}`,
+        'Content-Type': 'application/json'
+      }
+    }).then(resp => getResponseData(resp))
+  },
 
 }

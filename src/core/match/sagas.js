@@ -3,7 +3,7 @@ import {
   matchCreateSuccess, matchCreateError, getMatchesSuccess, getMatchesError
 } from './actions'
 import {
-  MATCH_CREATED, MATCH_DECLINE_CREATED, MATCHES_REQUESTED, MATCHES_REQUESTED_SUCCESS,
+  MATCH_CREATED, MATCHES_REQUESTED, MATCHES_REQUESTED_SUCCESS,
   MATCHES_REQUESTED_ERROR
 } from './constants'
 import { getAccessToken }                   from '*/core/user'
@@ -34,19 +34,6 @@ function* matchCreatedFlow(action) {
   }
 }
 
-function* matchDeclineCreatedFlow(action) {
-  try {
-    const { user_id } = action
-    const token = yield select(getAccessToken)
-    const match = yield call(api.declineMatch, token, user_id)
-
-    yield put(matchCreateSuccess(match))
-
-  } catch (error) {
-    yield put(matchCreateError(error))
-  }
-}
-
 //=====================================
 //  WATCHERS
 //-------------------------------------
@@ -54,7 +41,6 @@ function* matchDeclineCreatedFlow(action) {
 function* matchWatcher() {
   yield all([
     takeLatest(MATCH_CREATED, matchCreatedFlow),
-    takeLatest(MATCH_DECLINE_CREATED, matchDeclineCreatedFlow),
     takeLatest(MATCHES_REQUESTED, matchesRequestedFlow)
   ])
 }

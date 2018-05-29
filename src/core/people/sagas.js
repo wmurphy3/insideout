@@ -1,7 +1,7 @@
 import { all, takeLatest, fork, call, put, select } from 'redux-saga/effects'
 import { PEOPLE_REQUESTED } from './constants'
 import {
-  getPeopleSuccess, getPeopleError,
+  getPeopleSuccess, getPeopleError
 } from './actions'
 import { getAccessToken }                   from '*/core/user'
 import api                                  from './api'

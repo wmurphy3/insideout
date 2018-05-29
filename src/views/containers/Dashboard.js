@@ -1,8 +1,8 @@
-import { connect } 		 from 'react-redux'
-import Component 			 from '*/views/components/Dashboard'
-import { saveToken }   from '*/core/user'
+import { connect } 		             from 'react-redux'
+import Component 			             from '*/views/components/Dashboard'
+import { saveToken }               from '*/core/user'
 import { getPeople }   from '*/core/people'
-import { createMatch, declineMatch } from '*/core/match'
+import { createMatch }             from '*/core/match'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -14,8 +14,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getPeople: (location) => dispatch(getPeople(location)),
-    createMatch: (user_id) => dispatch(createMatch(user_id)),
-    declineMatch: (user_id) => dispatch(declineMatch(user_id))
+    createMatch: (user_id) => dispatch(createMatch(user_id))
   }
 }
 
