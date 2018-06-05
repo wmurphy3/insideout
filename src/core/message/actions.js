@@ -18,10 +18,11 @@ export const getMessagesError = (data) => ({
   data
 })
 
-export const setMessage = (message, id) => ({
+export const setMessage = (message, id, user_id) => ({
   type: MESSAGE_CREATED,
   message: message,
-  id: id
+  id: id,
+  user_id: user_id
 })
 
 export const messageCreateSuccess = (data) => ({

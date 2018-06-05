@@ -28,5 +28,9 @@ export default {
   input: {
     marginLeft: 20,
     marginRight: 20
+  },
+  select: {
+    marginTop: 20,
+    marginLeft: 20
   }
 }

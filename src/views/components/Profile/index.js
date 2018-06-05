@@ -44,25 +44,41 @@ export default class UserInformation extends Component {
 
     return(
       <ScrollView style={style.mainBackground}>
-        <View style={style.border_bottom}>
-
-          <List
-            containerStyle={{marginBottom: 20}}>
-            <ListItem
-              hideChevron={true}
-              title={
-                <View style={{flexDirection: 'row'}}>
-                  <View style={style.row}>
-                    <Text style={style.table_header}>Name</Text>
-                  </View>
-                  <View style={style.row}>
-                    <Text style={style.table_data}>{user.name}</Text>
-                  </View>
-                </View>
-              } />
-
-
-          </List>
+        <View style={style.container}>
+          <Text style={style.name}>{user.name}({user.gender}) - {user.age}</Text>
+        </View>
+        <Text style={style.padding}>{user.description}</Text>
+        <View>
+          <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
+            <Text>Job Title:{"\n"}{user.job_title}</Text>
+          </View>
+          <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
+            <Text>School:{"\n"}{user.school}</Text>
+          </View>
+          <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
+            <Text>Hobbies:{"\n"}{user.hobbies}</Text>
+          </View>
+          <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
+            <View style={style.column}>
+              <Text>Favorite Movie:{"\n"}{user.favorite_movie}</Text>
+            </View>
+            <View style={style.column}>
+              <Text>Favorite Food:{"\n"}{user.favorite_food}</Text>
+            </View>
+          </View>
+          <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
+            <View style={style.column}>
+              <Text>Favorite Song:{"\n"}{user.favorite_song}</Text>
+            </View>
+            <View style={style.column}>
+              <Text>
+                Interested In:{"\n"}
+                {user.allow_male ? ' Male' : '' }
+                {user.allow_female ? ' Female' : '' }
+                {user.allow_other ? ' Other' : '' }
+              </Text>
+            </View>
+          </View>
         </View>
       </ScrollView>
     )

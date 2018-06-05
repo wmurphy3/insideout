@@ -15,7 +15,7 @@ export default {
     })
     .then(resp => getResponseData(resp))
   },
-  setMessage: (token, message, id) => {
+  setMessage: (token, message, id, user_id) => {
     return fetch(ENDPOINT, {
       method: 'POST',
       body: JSON.stringify({
@@ -23,7 +23,8 @@ export default {
           "type": 'message',
           "attributes": {
             "message": message.text,
-            "match_id": id
+            "match_id": id,
+            "user_id": user_id
           }
         }
       }),

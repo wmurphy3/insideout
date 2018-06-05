@@ -26,31 +26,6 @@ export default class LoginScreen extends Component {
     }
   }
 
-  componentWillMount() {
-    const { user } = this.props
-    SecureStore.deleteItemAsync('email')
-    SecureStore.deleteItemAsync('password')
-    // Get email if set
-    this._handleTouchPermissions()
-
-    if(!user.login_username) {
-      this.setEmail()
-    }
-  }
-
-  setEmail() {
-    SecureStore.getItemAsync('email')
-    .then((data) => {
-      this.setState({
-        email: data,
-        show: (data ? true : false)
-      })
-      this.props.getLoginInfo(data)
-    }).catch((error) => {
-
-    })
-  }
-
   onLogin = (values) => {
     this.props.onLogin(values, this.state.turn_touch_id_on)
   }
@@ -67,65 +42,8 @@ export default class LoginScreen extends Component {
     NavigatorService.navigate('ContactUs')
   }
 
-  handleTouchID = () => {
-    const { user } = this.props
-    const { email, authorized } = this.state
-
-    if((email || user.login_username) && authorized) {
-      this.setState({
-        show: true
-      })
-    } else {
-      let turn_touch_id_on = !this.state.turn_touch_id_on
-      this.setState({
-        turn_touch_id_on: turn_touch_id_on
-      })
-    }
-  }
-
-  handleLogin = () => {
-    const email = this.state.email || this.props.user.login_username
-
-    SecureStore.getItemAsync('password')
-    .then((data) => {
-      this.props.onLogin({username: email, password: data})
-    }).catch((error) => {
-      displayError('Could not login. Try entering your email and password.')
-    })
-  }
-
-  _handleTouchPermissions = () => {
-    Fingerprint.isEnrolledAsync()
-    .then(result => {
-      this.setState({authorized: result})
-    })
-  }
-
   touchView() {
     const { handleSubmit, user } = this.props
-
-    if(this.state.authorized) {
-      return (
-        <View style={{flexDirection: 'row'}}>
-          <View style={{width: '80%'}}>
-            <Button
-              title="Login"
-              onPress={handleSubmit(this.onLogin)}
-              containerViewStyle={{marginLeft: 0, marginRight: 0}}
-              buttonStyle={style.button} />
-          </View>
-          <View style={{marginLeft: 10}}>
-            <Icon
-              name='ios-finger-print'
-              type='ionicon'
-              size={53}
-              color={this.state.turn_touch_id_on ? colors.main : colors.border}
-              containerStyle={{marginTop: 5, alignSelf: 'flex-end'}}
-              onPress={() => this.handleTouchID()} />
-          </View>
-        </View>
-      )
-    } else {
       return (
         <Button
           title="Login"
@@ -133,7 +51,6 @@ export default class LoginScreen extends Component {
           containerViewStyle={{marginLeft: 0, marginRight: 0}}
           buttonStyle={style.button} />
       )
-    }
   }
 
   render() {
@@ -166,12 +83,6 @@ export default class LoginScreen extends Component {
               component={FieldInput} />
 
             <Text onPress={() => this.gotToForgotPassword()} style={style.forgot_password_link}>Forgot Password?</Text>
-
-            {this.state.show &&
-              <FingerprintWaitingNotification
-                onFingerprintSuccess={this.handleLogin}
-              />
-            }
 
           </KeyboardAvoidingView>
 

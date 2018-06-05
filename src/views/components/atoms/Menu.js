@@ -56,7 +56,7 @@ class DrawerContainer extends React.Component {
             leftIcon={{name: "home"}} />
 
           <ListItem
-            title={"Matches"}
+            title={"Message Center"}
             onPress={() => this._pop('Matches')}
             leftIcon={{name: "favorite"}} />
 

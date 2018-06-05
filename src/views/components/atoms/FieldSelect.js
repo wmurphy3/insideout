@@ -36,14 +36,25 @@ export default class FieldSelect extends Component {
   }
 
   render() {
-    const { label, required, options, placeholder, style, meta: { touched, visited, error, warning } } = this.props
+    const { label, required, options, placeholder, style, width, meta: { touched, visited, error, warning } } = this.props
+
+    const SCREEN_WIDTH = Dimensions.get('window').width;
+
+    const styles = StyleSheet.create({
+      selectInput: {
+        minHeight:        36,
+        backgroundColor:  '#FFFFFF',
+        flexDirection:    'row',
+        borderBottomWidth: 1,
+        borderBottomColor: "#bdc6cf"
+      },
+      selectInputLarge: {
+        width: SCREEN_WIDTH - width
+      }
+    });
 
     return (
       <View style={style}>
-        <FormLabel labelStyle={{marginLeft: 0, marginRight: 0}}>
-          {required && <abbr title="required">*</abbr> }
-          {label}
-        </FormLabel>
         <SelectInput
           value={this.state.value}
           options={this.setupOptions()}
@@ -58,18 +69,3 @@ export default class FieldSelect extends Component {
     );
   }
 }
-
-const SCREEN_WIDTH = Dimensions.get('window').width;
-
-const styles = StyleSheet.create({
-  selectInput: {
-    minHeight:        36,
-    backgroundColor:  '#FFFFFF',
-    flexDirection:    'row',
-    borderBottomWidth: 1,
-    borderBottomColor: "#bdc6cf"
-  },
-  selectInputLarge: {
-    width: SCREEN_WIDTH - 40
-  }
-});

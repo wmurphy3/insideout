@@ -10,7 +10,7 @@ import colors                from '*/views/components/atoms/Colors'
 export default class MatchesScreen extends Component {
   static navigationOptions = ({navigation}) => {
     return {
-      title: 'Matches',
+      title: 'Message Center',
     };
   };
 

@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getMessages: (id) => dispatch(getMessages(id)),
-    setMessage: (message, id) => dispatch(setMessage(message, id))
+    setMessage: (message, id, user_id) => dispatch(setMessage(message, id, user_id))
   }
 }
 

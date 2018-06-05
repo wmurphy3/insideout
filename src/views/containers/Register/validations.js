@@ -13,18 +13,6 @@ export const validate = (values) => {
     errors.password = 'Required'
   }
 
-  if(!values.zip) {
-    errors.zip= 'Required'
-  }
-
-  if(!values.ssn) {
-    errors.ssn = 'Required'
-  }
-
-  if(!values.loan_number) {
-    errors.loan_number = 'Required'
-  }
-
   if(!values.password_confirmation) {
     errors.password_confirmation = 'Required'
   } else if(values.password_confirmation !== values.password) {

@@ -23,9 +23,9 @@ function* messageRequestedFlow(action) {
 
 function* messageCreatedFlow(action) {
   try {
-    const { message, id } = action
+    const { message, id, user_id } = action
     const token = yield select(getAccessToken)
-    const match = yield call(api.setMessage, token, message, id)
+    const match = yield call(api.setMessage, token, message, id, user_id)
 
     yield put(messageCreateSuccess(match))
 

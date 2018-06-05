@@ -36,12 +36,6 @@ export default class DashboardScreen extends Component {
     }
   };
 
-  // TODO will need to happen on message screen or in the backend when a message is sent
-  swipedRight= (index) => {
-    let user = this.props.people.data[index]
-    this.props.createMatch(user.id)
-  }
-
   goToProfile = (id) => {
     NavigatorService.navigate('ProfileStack', {id: id})
   }
@@ -57,13 +51,21 @@ export default class DashboardScreen extends Component {
         {people.data.map((p, i) => (
           <ListItem
             key={p.id}
-            title={`${p.name} - ${p.age}`}
+            title={
+              <Text style={style.name}>{p.name}({p.gender}) - {p.age}</Text>
+            }
             onPress={() => this.goToProfile(i)}
             subtitle={
-              <View style={style.container}>
-                <Text numberOfLines={2} style={style.text}>{p.description}</Text>
+              <View>
+                <View>
+                  <Text style={style.distance}>{p.distance} miles away</Text>
+                </View>
+                <View style={style.container}>
+                  <Text numberOfLines={2} style={style.text}>{p.description}</Text>
+                </View>
               </View>
             }
+            rightIcon={{name: 'visibility'}}
           />
         ))}
       </List>

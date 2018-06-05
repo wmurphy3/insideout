@@ -9,7 +9,7 @@ const FieldInput = ({ input, secureTextEntry, label, required, placeholder,
 
   const capatalize = autoCapitalize || 'words'
   const is_multiline = multiline || false
-  
+
   return (
     <View style={style}>
       <FormLabel
@@ -19,6 +19,7 @@ const FieldInput = ({ input, secureTextEntry, label, required, placeholder,
       </FormLabel>
       <FormInput
         {...input}
+        type="text"
         autoCapitalize={capatalize}
         id={input.name}
         multiline={is_multiline}

@@ -36,6 +36,14 @@ export const Years = () => {
 	return yearData;
 }
 
+export const Genders = () => {
+	return [
+		{label:"Male", key:"male"},
+		{label:"Female", key:"female"},
+		{label:"Other", key:"other"}
+	]
+}
+
 export const States = () => {
     return [
       {label:"Alabama", key:"AL"},

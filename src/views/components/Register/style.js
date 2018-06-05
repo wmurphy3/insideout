@@ -27,5 +27,8 @@ export default {
     elevation: 0,
     maxWidth: '100%',
     marginTop: 50
+  },
+  input: {
+    marginTop: 20
   }
 }

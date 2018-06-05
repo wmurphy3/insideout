@@ -48,5 +48,21 @@ export default {
   },
   center_text: {
     textAlign: 'center'
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  distance: {
+    fontStyle: 'italic',
+    fontSize: 12,
+    paddingHorizontal: 10
+  },
+  column: {
+    width: '50%'
+  },
+  padding: {
+    paddingHorizontal: 10,
+    paddingTop: 10
   }
 }

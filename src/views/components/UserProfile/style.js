@@ -14,5 +14,25 @@ export default {
   },
   row: {
     width: '100%'
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  distance: {
+    fontStyle: 'italic',
+    fontSize: 12,
+    paddingHorizontal: 10
+  },
+  button: {
+    backgroundColor: colors.main,
+    marginTop: 10
+  },
+  column: {
+    width: '50%'
+  },
+  padding: {
+    paddingHorizontal: 10,
+    paddingTop: 10
   }
 }

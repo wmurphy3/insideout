@@ -18,13 +18,14 @@ export default class MessageScreen extends Component {
     super(props, context);
     this.state = {
       messages: [],
-      match_id: null
+      match_id: null,
+      user_id: null
     }
   }
 
   componentWillMount() {
     let route = NavigatorService.getCurrentRoute()
-    this.setState({match_id: route.params.id})
+    this.setState({match_id: route.params.id, user_id: route.params.user_id})
     this.props.getMessages(route.params.id)
   }
 
@@ -38,7 +39,7 @@ export default class MessageScreen extends Component {
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }))
-    this.props.setMessage(messages[0], this.state.match_id)
+    this.props.setMessage(messages[0], this.state.match_id, this.state.user_id)
   }
 
   renderBubble(props) {
