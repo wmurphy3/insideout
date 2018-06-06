@@ -12,6 +12,7 @@ import Dashboard              from '*/views/containers/Dashboard'
 import Matches                from '*/views/containers/Matches'
 import Message                from '*/views/containers/Message'
 import UserProfile            from '*/views/containers/UserProfile'
+import MatchedUser            from '*/views/containers/MatchedUser'
 import Profile                from '*/views/containers/Profile'
 import EditProfile            from '*/views/containers/EditProfile'
 
@@ -108,6 +109,24 @@ const MessageNavigation = StackNavigator({
   })
 })
 
+const MatchedUserStack = DrawerNavigator({
+  MatchedUser: { screen: MatchedUser }
+}, {
+  gesturesEnabled: false
+})
+
+const MatchedUserNavigation = StackNavigator({
+  MatchedUserStack: { screen: MatchedUserStack },
+}, {
+  headerMode: 'screen',
+  navigationOptions: ({navigation}, header) => ({
+    headerStyle: {backgroundColor: colors.main},
+    headerTintColor: 'white',
+    gesturesEnabled: false,
+    ...header,
+  })
+})
+
 const ProfileStack = DrawerNavigator({
   UserProfile: { screen: UserProfile }
 }, {
@@ -152,7 +171,8 @@ export default StackNavigator({
   drawerStack: { screen: DrawerNavigation },
   MessageStack: { screen: MessageNavigation },
   ProfileStack: { screen: ProfileNavigation },
-  EditProfileStack: { screen: EditProfileNavigation }
+  EditProfileStack: { screen: EditProfileNavigation },
+  MatchedUserStack: { screen: MatchedUserNavigation }
 }, {
   // Default config for all screens
   headerMode: 'none',

@@ -1,3 +1,6 @@
 export const PEOPLE_REQUESTED 			       = '@people/REQUESTED'
 export const PEOPLE_REQUESTED_SUCCESS 	   = '@people/REQUESTED_SUCCESS'
 export const PEOPLE_REQUESTED_ERROR 	     = '@people/REQUESTED_ERROR'
+export const PERSON_REQUESTED              = '@person/REQUESTED'
+export const PERSON_REQUESTED_SUCCESS      = '@person/REQUESTED_SUCCESS'
+export const PERSON_REQUESTED_ERROR        = '@person/REQUESTED_ERROR'

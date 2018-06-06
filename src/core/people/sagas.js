@@ -1,7 +1,7 @@
 import { all, takeLatest, fork, call, put, select } from 'redux-saga/effects'
-import { PEOPLE_REQUESTED } from './constants'
+import { PEOPLE_REQUESTED, PERSON_REQUESTED } from './constants'
 import {
-  getPeopleSuccess, getPeopleError
+  getPeopleSuccess, getPeopleError, getPersonSuccess, getPersonError
 } from './actions'
 import { getAccessToken }                   from '*/core/user'
 import api                                  from './api'
@@ -20,13 +20,28 @@ function* peopleRequestedFlow(action) {
   }
 }
 
+function* personRequestedFlow(action) {
+  try {
+    const { id } = action
+    const token = yield select(getAccessToken)
+    const data = yield call(api.getPerson, token, id)
+    console.log(data)
+    yield put(getPersonSuccess(data))
+
+  } catch (error) {
+    console.log(error)
+    yield put(getPersonError(error))
+  }
+}
+
 //=====================================
 //  WATCHERS
 //-------------------------------------
 
 function* peopleWatcher() {
   yield all([
-    takeLatest(PEOPLE_REQUESTED, peopleRequestedFlow)
+    takeLatest(PEOPLE_REQUESTED, peopleRequestedFlow),
+    takeLatest(PERSON_REQUESTED, personRequestedFlow)
   ])
 }
 

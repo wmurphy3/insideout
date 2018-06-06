@@ -1,7 +1,7 @@
 import { connect } 		             from 'react-redux'
 import Component 			             from '*/views/components/Dashboard'
 import { saveToken }               from '*/core/user'
-import { getPeople }   from '*/core/people'
+import { getPeople }               from '*/core/people'
 import { createMatch }             from '*/core/match'
 
 const mapStateToProps = (state, ownProps) => {

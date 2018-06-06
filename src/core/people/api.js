@@ -13,6 +13,16 @@ export default {
       }
     })
     .then(resp => getResponseData(resp))
+  },
+  getPerson: (token, id) => {
+    return fetch(`${ENDPOINT}/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token || undefined}`,
+      }
+    })
+    .then(resp => getResponseData(resp))
   }
 
 }

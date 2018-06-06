@@ -2,7 +2,8 @@ import { findIndex } from 'lodash'
 import {
   MATCH_CREATED, MATCH_CREATED_SUCCESS, MATCH_CREATED_ERROR,
   MATCHES_REQUESTED, MATCHES_REQUESTED_SUCCESS,
-  MATCHES_REQUESTED_ERROR
+  MATCHES_REQUESTED_ERROR, MATCH_NEXT_STEP, MATCH_NEXT_STEP_SUCCESS,
+  MATCH_NEXT_STEP_ERROR
 } from './constants'
 
 const initial = {
@@ -39,6 +40,15 @@ export const matchReducer = (state = initial, action) => {
       return { ...state, loading: false }
 
     case MATCH_CREATED_ERROR:
+      return { ...state, error : action.error, loading: false }
+
+    case MATCH_NEXT_STEP:
+      return { ...state, loading: false }
+
+    case MATCH_NEXT_STEP_SUCCESS:
+      return { ...state, loading: false }
+
+    case MATCH_NEXT_STEP_ERROR:
       return { ...state, error : action.error, loading: false }
 
     default:

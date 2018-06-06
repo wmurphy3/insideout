@@ -22,8 +22,8 @@ export default class MatchesScreen extends Component {
     this.props.getMatches()
   }
 
-  goToMessage = (id) => {
-    NavigatorService.navigate("MessageStack", {id: id})
+  goToMessage = (id, row_id, user_id) => {
+    NavigatorService.navigate("MessageStack", {id: id, user_id: user_id, row_id: row_id})
   }
 
   render() {
@@ -31,7 +31,6 @@ export default class MatchesScreen extends Component {
 
     if (matches.loading)
       return (<Spinner />)
-
     return (
       <ScrollView style={style.container}>
         <List>
@@ -41,7 +40,7 @@ export default class MatchesScreen extends Component {
                 key={i}
                 title={match.name}
                 subtitle={`${match.age} yeard old`}
-                onPress={() => this.goToMessage(match.id)}
+                onPress={() => this.goToMessage(match.id, i, match.user_id)}
               />
             ))
           }

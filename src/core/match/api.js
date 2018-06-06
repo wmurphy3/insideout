@@ -5,7 +5,6 @@ const ENDPOINT = `${REACT_APP_API_URL}/matches`;
 
 export default {
   getMatches: (token) => {
-
     return fetch(ENDPOINT, {
       method: 'GET',
       headers: {
@@ -26,6 +25,16 @@ export default {
           }
         }
       }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token || undefined}`
+      }
+    })
+    .then(resp => getResponseDelete(resp))
+  },
+  setNextStep: (token, id) => {
+    return fetch(`${ENDPOINT}/next_step?id=${id}`, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token || undefined}`
