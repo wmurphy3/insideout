@@ -4,11 +4,12 @@ import { delay }                                    from 'redux-saga'
 import { AsyncStorage }                             from 'react-native'
 import { unsetUser, setUser, receiveLoginError,
          updateUserError, updateUserSuccess,
+         saveImageSuccess, saveImageError,
          registerError, sendRecoveryEmailError,
          updatePasswordError }                       from './actions'
 import { LOGIN_REQUESTED, USER_UNSET, USER_UPDATED,
          REGISTERED, SEND_RECOVERY_EMAIL,
-         UPDATE_PASSWORD, SAVE_TOKEN }               from './constants'
+         UPDATE_PASSWORD, SAVE_TOKEN,SAVE_IMAGE }    from './constants'
 import apiUser                                       from './api'
 import { displayErrors }                             from '*/utils/custom_services'
 import { getAccessToken }                            from '*/core/user'
@@ -113,18 +114,31 @@ function* userUpdatedFlow(action) {
   }
 }
 
+function* saveImageFlow(action) {
+  try {
+    const { image } = action
+    const token = yield select(getAccessToken)
+    const user = yield call(apiUser.saveImage, token, image)
+
+    yield put(saveImageSuccess(user))
+    displaySuccess('Profile updated')
+  } catch (error) {
+    console.log(error)
+    yield put(saveImageError(error))
+    displayError('Could not save image at this time.')
+  }
+}
+
 function* sendRecoveryEmailFlow(action) {
   try {
     const { data } = action
-    const token = yield call(apiUser.getToken)
-    yield call(apiUser.sendRecoveryEmail, data, token['access_token'])
+    yield call(apiUser.sendRecoveryEmail, data)
 
     NavigatorService.navigate('loginStack')
     displaySuccess('Email has been sent')
   } catch (error) {
-    console.log(error)
     yield put(sendRecoveryEmailError(error))
-    displayError(error.errors)
+    displayError('Email could not be sent.')
   }
 }
 
@@ -193,7 +207,8 @@ function* userWatcher() {
     takeLatest(SAVE_TOKEN, saveTokenFlow),
     takeLatest(REGISTERED, registeredFlow),
     takeLatest(SEND_RECOVERY_EMAIL, sendRecoveryEmailFlow),
-    takeLatest(UPDATE_PASSWORD, updatePasswordFlow)
+    takeLatest(UPDATE_PASSWORD, updatePasswordFlow),
+    takeLatest(SAVE_IMAGE, saveImageFlow)
   ])
 }
 

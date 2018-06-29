@@ -6,7 +6,7 @@ import NavigatorService           from '*/utils/navigator'
 import style                      from './style'
 import colors                     from '*/views/components/atoms/Colors'
 import { Col, Row, Grid }         from "react-native-easy-grid"
-import { Button, Icon }           from 'react-native-elements'
+import { Button, Icon, Avatar }   from 'react-native-elements'
 
 export default class MatchedUserScreen extends Component {
   static navigationOptions = ({navigation}) => {
@@ -48,6 +48,15 @@ export default class MatchedUserScreen extends Component {
 
     return (
       <ScrollView style={style.mainBackground}>
+        {(person.profile_picture && person.matched) &&
+          <Avatar
+            large
+            rounded
+            source={{uri: person.profile_picture}}
+            onPress={() => console.log("Works!")}
+            activeOpacity={0.7}
+          />
+        }
         <View style={style.container}>
           <Text style={style.name}>{person.name}({person.gender}) - {person.age}</Text>
         </View>
@@ -71,6 +80,16 @@ export default class MatchedUserScreen extends Component {
               <Text>Favorite Food:{"\n"}{person.favorite_food}</Text>
             </View>
           </View>
+          { person.matched &&
+            <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
+              <Text>Snap Chat Name:{"\n"}{person.snap_chat_name}</Text>
+            </View>
+          }
+          { person.matched &&
+            <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
+              <Text>Social Media:{"\n"}{person.social_media_link}</Text>
+            </View>
+          }
           <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
             <View style={style.column}>
               <Text>Favorite Song:{"\n"}{person.favorite_song}</Text>

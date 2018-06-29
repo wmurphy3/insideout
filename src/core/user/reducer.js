@@ -3,7 +3,8 @@ import {
   REGISTERED, REGISTERED_ERROR,
   SEND_RECOVERY_EMAIL, SEND_RECOVERY_EMAIL_ERROR,
   UPDATE_PASSWORD, UPDATE_PASSWORD_ERROR,
-  USER_SET, USER_UNSET, USER_INFO_SET, USER_UNSET_TOUCH_ID
+  USER_SET, USER_UNSET, USER_INFO_SET, USER_UNSET_TOUCH_ID,
+  SAVE_IMAGE, SAVE_IMAGE_SUCCESS, SAVE_IMAGE_ERROR
 } from './constants'
 
 const initial = {
@@ -26,7 +27,8 @@ const initial = {
   allow_other: null,
   snap_chat_name: null,
   allow_male: null,
-  allow_female: null
+  allow_female: null,
+  profile_picture: null
 }
 
 export const userReducer = (state = initial, action) => {
@@ -53,7 +55,8 @@ export const userReducer = (state = initial, action) => {
         allow_other: action.token.allow_other,
         snap_chat_name: action.token.snap_chat_name,
         allow_male: action.token.allow_male,
-        allow_female: action.token.allow_female
+        allow_female: action.token.allow_female,
+        profile_picture: action.token.profile_picture
       }
 
     case USER_INFO_SET:
@@ -73,7 +76,7 @@ export const userReducer = (state = initial, action) => {
 
     case USER_UPDATED_SUCCESS:
       let user_data = action.data.data.attributes
-      console.log(user_data)
+
       return {
         ...state,
         loading: false,
@@ -109,6 +112,23 @@ export const userReducer = (state = initial, action) => {
 
     case UPDATE_PASSWORD_ERROR:
       return  { ...state, error: action.data }
+
+    case SAVE_IMAGE:
+      return { ...state, loading: true }
+
+    case SAVE_IMAGE_SUCCESS:
+      let user_d = action.data.data.attributes
+
+      return {
+        ...state,
+        loading: false,
+        profile_picture: user_d.profile_picture
+      }
+
+    case SAVE_IMAGE_ERROR:
+      return { ...state, error : action.error, loading: false }
+
+
 
     default:
       return state

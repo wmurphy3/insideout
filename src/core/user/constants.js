@@ -17,6 +17,10 @@ export const USER_UPDATED               = 'user/UPDATED'
 export const USER_UPDATED_SUCCESS       = 'user/UPDATED_SUCCESS'
 export const USER_UPDATED_ERROR         = 'user/UPDATED_ERROR'
 
+export const SAVE_IMAGE                 = 'user/SAVE_IMAGE'
+export const SAVE_IMAGE_SUCCESS         = 'user/SAVE_IMAGE_SUCCESS'
+export const SAVE_IMAGE_ERROR           = 'user/SAVE_IMAGE_ERROR'
+
 export const REGISTERED                 = 'user/REGISTERED'
 export const REGISTERED_ERROR           = 'user/REGISTERED_ERROR'
 
@@ -24,3 +28,7 @@ export const UPDATE_PASSWORD            = 'user/UPDATE_PASSWORD'
 export const UPDATE_PASSWORD_ERROR      = 'user/UPDATE_PASSWORD_ERROR'
 
 export const SAVE_TOKEN                 = 'auth/SAVE_TOKEN'
+
+export const REPORT_USER                = 'user/REPORT_USER'
+export const REPORT_USER_SUCCESS        = 'user/REPORT_USER_SUCCESS'
+export const REPORT_USER_ERROR          = 'user/REPORT_USER_ERROR'

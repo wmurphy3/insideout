@@ -32,6 +32,10 @@ export default class UserProfileScreen extends Component {
     NavigatorService.navigate('MessageStack', {id: null, user_id: id})
   }
 
+  reportUser(id) {
+    this.props.reportUser(id, "Reported User")
+  }
+
   render() {
     const { person } = this.state
     if (!person)
@@ -81,6 +85,8 @@ export default class UserProfileScreen extends Component {
           onPress={() => this.goToMessage(person.id)}
           containerViewStyle={{marginLeft: 0, marginRight: 0}}
           buttonStyle={style.button} />
+
+        <Text onPress={() => this.reportUser(person.id)} style={style.contact_link}>Report User</Text>
       </ScrollView>
     );
   }

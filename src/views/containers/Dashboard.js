@@ -13,8 +13,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getPeople: (location) => dispatch(getPeople(location)),
-    createMatch: (user_id) => dispatch(createMatch(user_id))
+    getPeople: (location, query) => dispatch(getPeople(location, query)),
+    createMatch: (user_id) => dispatch(createMatch(user_id)),
+    saveToken: (token) => dispatch(saveToken(token))
   }
 }
 

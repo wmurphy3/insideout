@@ -59,9 +59,19 @@ export const getResponseDelete = (response)  => {
 
 export const buildBody = (type, data) => {
   return JSON.stringify({
-        "data": {
-          "type": type,
-          "attributes": data
-        }
-      })
+    "data": {
+      "type": type,
+      "attributes": data
+    }
+  })
+}
+
+export const imageData = (image) => {
+  let formData = new FormData();
+  let filename = image.split('/').pop();
+  let match = /\.(\w+)$/.exec(filename);
+  let type = match ? `image/${match[1]}` : `image`;
+  formData.append('image', { uri: image, name: filename, type: 'image/jpg' });
+
+  return formData;
 }

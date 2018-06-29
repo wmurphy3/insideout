@@ -1,5 +1,6 @@
 import { connect } 		 from 'react-redux'
 import Component 			 from '*/views/components/UserProfile'
+import { reportUser }  from '*/core/people'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -8,7 +9,9 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return {}
+  return {
+    reportUser: (id, reason) => dispatch(reportUser(id, reason))
+  }
 }
 
 export default connect(

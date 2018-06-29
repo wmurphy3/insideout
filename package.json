@@ -32,6 +32,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
     "numeral": "^2.0.6",
+    "pusher-js": "^4.2.2",
     "react": "16.0.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-24.0.0.tar.gz",
     "react-native-calendars": "^1.17.0",

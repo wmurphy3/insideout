@@ -1,8 +1,8 @@
-import { connect }          from 'react-redux'
-import Component            from '*/views/components/EditProfile'
-import { updateUser }       from '*/core/user'
-import { reduxForm }        from 'redux-form'
-import { validate }         from './validations'
+import { connect }                      from 'react-redux'
+import Component                        from '*/views/components/EditProfile'
+import { updateUser, saveImage }        from '*/core/user'
+import { reduxForm }                    from 'redux-form'
+import { validate }                     from './validations'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -20,6 +20,7 @@ const FormComponent = reduxForm({
 export default connect(
   mapStateToProps,
   {
-    updateUser
+    updateUser,
+    saveImage
   }
 )(FormComponent)

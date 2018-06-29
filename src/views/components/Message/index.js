@@ -1,5 +1,6 @@
 import React, { Component }   from 'react'
-import { Text, View, ScrollView } from 'react-native'
+import { Text, View, ScrollView,
+  ActionSheetIOS }            from 'react-native'
 import moment                 from 'moment'
 import Spinner                from '*/views/components/atoms/Spinner'
 import NavigatorService       from '*/utils/navigator'
@@ -7,6 +8,12 @@ import style                  from './style'
 import colors                 from '*/views/components/atoms/Colors'
 import { GiftedChat, Bubble } from 'react-native-gifted-chat'
 import { Avatar, Icon }       from 'react-native-elements'
+import Pusher                 from 'pusher-js/react-native';
+
+var pusher = new Pusher('5c97f200280b746920a2', {
+  cluster: 'us2',
+  encrypted: true
+});
 
 export default class MessageScreen extends Component {
   static navigationOptions = ({navigation}) => {
@@ -28,7 +35,7 @@ export default class MessageScreen extends Component {
           name={'magnifying-glass'}
           containerStyle={{marginRight: 10}}
           color="#fff"
-          onPress={ () => params.setNextStep() }  />
+          onPress={ () => params.messageOptions() }  />
       )
     };
   };
@@ -50,15 +57,36 @@ export default class MessageScreen extends Component {
 
     this.props.navigation.setParams({
       goToProfile: this.goToUserProfile,
-      setNextStep: this.setNextStep,
+      messageOptions: this.messageOptions,
       name: this.props.matches.data[route.params.row_id]["name"].slice(0, 1)
     })
+
+    var channel = pusher.subscribe(route.params.id);
+
+    channel.bind('message', function(data) {
+      console.log(data)
+    });
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       messages: nextProps.messages.data
     })
+  }
+
+  messageOptions = () => {
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: ['Cancel', 'Block User', 'Next Step'],
+      destructiveButtonIndex: 1,
+      cancelButtonIndex: 0,
+    },
+    (buttonIndex) => {
+      if (buttonIndex === 1) {
+        this.props.blockUser();
+      } else if (buttonIndex == 2) {
+        this.setNextStep();
+      }
+    });
   }
 
   goToUserProfile = () => {

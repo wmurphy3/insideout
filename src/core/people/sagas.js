@@ -1,7 +1,8 @@
-import { all, takeLatest, fork, call, put, select } from 'redux-saga/effects'
-import { PEOPLE_REQUESTED, PERSON_REQUESTED } from './constants'
+import { all, takeLatest, fork, call, put, select }             from 'redux-saga/effects'
+import { PEOPLE_REQUESTED, PERSON_REQUESTED, PERSON_REPORTED }  from './constants'
 import {
-  getPeopleSuccess, getPeopleError, getPersonSuccess, getPersonError
+  getPeopleSuccess, getPeopleError, getPersonSuccess, getPersonError,
+  reportUserSuccess, reportUserError
 } from './actions'
 import { getAccessToken }                   from '*/core/user'
 import api                                  from './api'
@@ -10,9 +11,9 @@ import NavigatorService                     from '*/utils/navigator'
 
 function* peopleRequestedFlow(action) {
   try {
-    const { location } = action
+    const { location, query } = action
     const token = yield select(getAccessToken)
-    const data = yield call(api.getPeople, token, location)
+    const data = yield call(api.getPeople, token, location, query)
     yield put(getPeopleSuccess(data))
 
   } catch (error) {
@@ -34,6 +35,20 @@ function* personRequestedFlow(action) {
   }
 }
 
+function* personReportedFlow(action) {
+  try {
+    const { id, reason } = action
+    const token = yield select(getAccessToken)
+    const data = yield call(api.reportUser, token, id, reason)
+    console.log(data)
+    yield put(reportUserSuccess(data))
+
+  } catch (error) {
+    console.log(error)
+    yield put(reportUserError('Could not report user at this time.'))
+  }
+}
+
 //=====================================
 //  WATCHERS
 //-------------------------------------
@@ -41,7 +56,8 @@ function* personRequestedFlow(action) {
 function* peopleWatcher() {
   yield all([
     takeLatest(PEOPLE_REQUESTED, peopleRequestedFlow),
-    takeLatest(PERSON_REQUESTED, personRequestedFlow)
+    takeLatest(PERSON_REQUESTED, personRequestedFlow),
+    takeLatest(PERSON_REPORTED, personReportedFlow)
   ])
 }
 

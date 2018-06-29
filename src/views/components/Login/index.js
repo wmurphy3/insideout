@@ -39,7 +39,7 @@ export default class LoginScreen extends Component {
   }
 
   goToContactUs() {
-    NavigatorService.navigate('ContactUs')
+    NavigatorService.navigate('TermsOfService')
   }
 
   touchView() {
@@ -91,7 +91,7 @@ export default class LoginScreen extends Component {
           <Text style={style.link}>
             Don't have an account? <Text onPress={() => this.goToRegister()} style={style.register_link}>Register</Text></Text>
             <Divider style={style.divider} />
-            <Text onPress={() => this.goToContactUs()} style={style.contact_link}>Contact Us
+            <Text onPress={() => this.goToContactUs()} style={style.contact_link}>Terms of Service
           </Text>
         </Card>
       </View>

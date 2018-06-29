@@ -1,7 +1,7 @@
 import React, { Component }               from 'react'
 import { Text, View, Switch, AlertIOS,
          ScrollView }                     from 'react-native';
-import { Button, List, ListItem, Icon }   from 'react-native-elements'
+import { Button, List, ListItem, Icon, Avatar }   from 'react-native-elements'
 import style                              from './style'
 import Spinner                            from '*/views/components/atoms/Spinner'
 import NavigatorService                   from '*/utils/navigator'
@@ -44,6 +44,15 @@ export default class UserInformation extends Component {
 
     return(
       <ScrollView style={style.mainBackground}>
+        {user.profile_picture &&
+          <Avatar
+            large
+            rounded
+            source={{uri: user.profile_picture}}
+            onPress={() => console.log("Works!")}
+            activeOpacity={0.7}
+          />
+        }
         <View style={style.container}>
           <Text style={style.name}>{user.name}({user.gender}) - {user.age}</Text>
         </View>

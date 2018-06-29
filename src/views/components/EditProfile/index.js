@@ -1,6 +1,6 @@
 import React, { Component }               from 'react'
-import { Text, View }                     from 'react-native';
-import { Button }                         from 'react-native-elements'
+import { Text, View, ActionSheetIOS }     from 'react-native';
+import { Button, Avatar }                 from 'react-native-elements'
 import { Field }                          from 'redux-form'
 import FieldInput                         from '*/views/components/atoms/FieldInput'
 import FieldSelect                        from '*/views/components/atoms/FieldSelect'
@@ -27,6 +27,10 @@ export default class EditProfile extends Component {
 
   constructor(props) {
     super(props)
+
+    this.state = {
+      imgUri: null
+    }
   }
 
   componentWillMount() {
@@ -39,6 +43,45 @@ export default class EditProfile extends Component {
 
   getGenders() {
     return Genders().map(m => ({ value: m.key, label: m.label}) )
+  }
+
+  _editProfile = () => {
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: ['Cancel', 'Photo Album', 'Take Photo'],
+      destructiveButtonIndex: 1,
+      cancelButtonIndex: 0,
+    },
+    (buttonIndex) => {
+      if (buttonIndex === 1) {
+        this._onChoosePic();
+      } else if (buttonIndex == 2) {
+        this._takePhoto();
+      }
+    });
+  }
+
+  _onChoosePic = async () => {
+    const {
+      cancelled,
+      uri,
+    } = await Expo.ImagePicker.launchImageLibraryAsync();
+    if (!cancelled) {
+      this.saveImage(uri)
+    }
+  }
+
+  _takePhoto = async () => {
+    let pickerResult = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+
+    this.saveImage(pickerResult.uri)
+  };
+
+  saveImage(uri) {
+    this.setState({ imageUri: uri })
+    this.props.saveImage(uri)
   }
 
   update = (values) => {
@@ -146,6 +189,22 @@ export default class EditProfile extends Component {
           name="allow_other"
           label="Into Other"
           component={CustomCheckBox} />
+
+        {this.state.imageUri &&
+          <Avatar
+            small
+            rounded
+            source={{uri: this.state.imageUri}}
+            onPress={() => console.log("Works!")}
+            activeOpacity={0.7}
+          />
+        }
+
+        <Button
+          title="Update"
+          onPress={this._editProfile}
+          buttonStyle={style.button}
+          containerViewStyle={{margin: 20}} />
 
         <Button
           title="Update"

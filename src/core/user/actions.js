@@ -14,7 +14,10 @@ import {
   UPDATE_PASSWORD_ERROR,
   SAVE_TOKEN,
   USER_INFO_SET,
-  USER_UNSET_TOUCH_ID
+  USER_UNSET_TOUCH_ID,
+  SAVE_IMAGE,
+  SAVE_IMAGE_SUCCESS,
+  SAVE_IMAGE_ERROR
 } from './constants'
 
 export const setUser = (token) => ({
@@ -63,6 +66,21 @@ export const updateUserSuccess = (data) => ({
 
 export const updateUserError = (data) => ({
   type: USER_UPDATED_ERROR,
+  data
+})
+
+export const saveImage = (image) => ({
+  type: SAVE_IMAGE,
+  image
+})
+
+export const saveImageSuccess = (data) => ({
+  type: SAVE_IMAGE_SUCCESS,
+  data
+})
+
+export const saveImageError = (data) => ({
+  type: SAVE_IMAGE_ERROR,
   data
 })
 

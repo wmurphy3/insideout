@@ -1,11 +1,11 @@
 import { all, takeLatest, fork, call, put, select } from 'redux-saga/effects'
 import {
   matchCreateSuccess, matchCreateError, getMatchesSuccess, getMatchesError,
-  setNextStepSuccess, setNextStepError
+  setNextStepSuccess, setNextStepError, blockMatchSuccess
 } from './actions'
 import {
   MATCH_CREATED, MATCHES_REQUESTED, MATCHES_REQUESTED_SUCCESS,
-  MATCHES_REQUESTED_ERROR, MATCH_NEXT_STEP
+  MATCHES_REQUESTED_ERROR, MATCH_NEXT_STEP, MATCH_BLOCK
 } from './constants'
 import { getAccessToken }                   from '*/core/user'
 import api                                  from './api'
@@ -49,6 +49,19 @@ function* matchNextStepFlow(action) {
   }
 }
 
+function* blockMatchFlow(action) {
+  try {
+    const { id } = action
+    const token = yield select(getAccessToken)
+    const match = yield call(api.blockMatch, token, id)
+
+    yield put(blockMatchSuccess(match))
+    displaySuccess('User has been blocked')
+  } catch (error) {
+    displayError('Could not block user, please try again.')
+  }
+}
+
 //=====================================
 //  WATCHERS
 //-------------------------------------
@@ -57,7 +70,8 @@ function* matchWatcher() {
   yield all([
     takeLatest(MATCH_CREATED, matchCreatedFlow),
     takeLatest(MATCHES_REQUESTED, matchesRequestedFlow),
-    takeLatest(MATCH_NEXT_STEP, matchNextStepFlow)
+    takeLatest(MATCH_NEXT_STEP, matchNextStepFlow),
+    takeLatest(MATCH_BLOCK, blockMatchFlow)
   ])
 }
 

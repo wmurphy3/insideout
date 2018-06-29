@@ -34,5 +34,11 @@ export default {
   padding: {
     paddingHorizontal: 10,
     paddingTop: 10
+  },
+  contact_link: {
+    color: colors.main,
+    fontSize: 10,
+    textAlign: 'center',
+    marginTop: 10
   }
 }

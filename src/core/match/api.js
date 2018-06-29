@@ -41,5 +41,15 @@ export default {
       }
     })
     .then(resp => getResponseDelete(resp))
-  }
+  },
+  blockMatch: (token, id) => {
+    return fetch(`${ENDPOINT}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token || undefined}`
+      }
+    })
+    .then(resp => getResponseDelete(resp))
+  },
 }

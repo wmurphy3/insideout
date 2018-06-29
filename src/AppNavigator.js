@@ -15,6 +15,7 @@ import UserProfile            from '*/views/containers/UserProfile'
 import MatchedUser            from '*/views/containers/MatchedUser'
 import Profile                from '*/views/containers/Profile'
 import EditProfile            from '*/views/containers/EditProfile'
+import TermsOfService         from '*/views/containers/TermsOfService'
 
 import Menu                   from '*/views/components/atoms/Menu'
 import colors                 from '*/views/components/atoms/Colors'
@@ -34,6 +35,7 @@ const LoginStack = StackNavigator({
   Login:          { screen: Login },
   ForgotPassword: { screen: ForgotPassword },
   Register:       { screen: Register },
+  TermsOfService: { screen: TermsOfService }
 }, {
     headerMode: 'none',
     navigationOptions: {

@@ -1,7 +1,8 @@
 import {
   MATCH_CREATED, MATCH_CREATED_SUCCESS, MATCH_CREATED_ERROR,
   MATCHES_REQUESTED, MATCHES_REQUESTED_SUCCESS, MATCHES_REQUESTED_ERROR,
-  MATCH_NEXT_STEP, MATCH_NEXT_STEP_SUCCESS, MATCH_NEXT_STEP_ERROR
+  MATCH_NEXT_STEP, MATCH_NEXT_STEP_SUCCESS, MATCH_NEXT_STEP_ERROR, MATCH_BLOCK,
+  MATCH_BLOCK_SUCCESS
 } from './constants'
 
 export const getMatches = () => ({
@@ -38,7 +39,7 @@ export const setNextStep = (id) => ({
   id
 })
 
-export const setNextStepSuccess = (id) => ({
+export const setNextStepSuccess = (data) => ({
   type: MATCH_NEXT_STEP_SUCCESS,
   data
 })
@@ -46,4 +47,14 @@ export const setNextStepSuccess = (id) => ({
 export const setNextStepError = (error) => ({
   type: MATCH_NEXT_STEP_ERROR,
   error
+})
+
+export const blockMatch = (id) => ({
+  type: MATCH_BLOCK,
+  id
+})
+
+export const blockMatchSuccess = (data) => ({
+  type: MATCH_BLOCK_SUCCESS,
+  data
 })
