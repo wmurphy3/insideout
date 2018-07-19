@@ -3,12 +3,14 @@ import { View, KeyboardAvoidingView } from 'react-native'
 import { FormLabel, FormInput,
          FormValidationMessage}       from 'react-native-elements'
 import colors                         from '*/views/components/atoms/Colors'
+const Dimensions = require('Dimensions');
 
 const FieldInput = ({ input, secureTextEntry, label, required, placeholder,
   children, disabled, autoCapitalize, style, className, multiline, meta: { touched, visited, error, warning } }) => {
 
   const capatalize = autoCapitalize || 'words'
   const is_multiline = multiline || false
+  const width = Dimensions.get('window').width;
 
   return (
     <View style={style}>

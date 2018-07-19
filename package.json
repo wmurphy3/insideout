@@ -1,6 +1,6 @@
 {
-  "name": "MobilePay",
-  "version": "0.1.0",
+  "name": "InsideOut",
+  "version": "0.0.2",
   "private": true,
   "devDependencies": {
     "babel-plugin-root-import": "^5.1.0",
@@ -51,6 +51,7 @@
     "react-native-select-input-ios": "^1.2.0",
     "react-native-side-menu": "^1.1.3",
     "react-native-swipeout": "^2.3.3",
+    "react-native-swiper": "^1.5.13",
     "react-native-text-input-mask": "^0.5.2",
     "react-navigation": "^1.0.0-beta.27",
     "react-redux": "^5.0.6",

@@ -2,14 +2,14 @@
   "expo": {
     "sdkVersion": "24.0.0",
     "icon": "./src/views/assets/mobile_logo.png",
-    "name": "Wingmate",
-    "slug": "wingmate",
-    "version": "1.0.8",
+    "name": "InsideOut",
+    "slug": "insideout",
+    "version": "0.0.2",
     "ios": {
-      "bundleIdentifier": "com.wingmate.dev"
+      "bundleIdentifier": "com.insideout.dev"
     },
     "android": {
-      "package": "com.wingmate.dev"
+      "package": "com.insideout.dev"
     }
   }
 }

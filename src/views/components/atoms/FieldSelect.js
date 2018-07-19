@@ -60,7 +60,7 @@ export default class FieldSelect extends Component {
           options={this.setupOptions()}
           onCancelEditing={() => console.log('onCancel')}
           onSubmitEditing={this.onSubmit}
-          labelStyle={{color: this.state.color, fontSize: 16, marginTop: 7}}
+          labelStyle={{color: this.state.color, fontSize: 13, marginTop: 7}}
           style={[styles.selectInput, styles.selectInputLarge]}
         />
         {touched &&
