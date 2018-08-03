@@ -19,5 +19,13 @@ export const validate = (values) => {
     errors.password_confirmation = 'Doesn\'t match password'
   }
 
+  if(!values.age) {
+    errors.age = 'Required'
+  }
+
+  if(!values.gender) {
+    errors.gender = 'Required'
+  }
+
   return errors
 }

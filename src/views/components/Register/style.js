@@ -19,14 +19,7 @@ export default {
     marginTop: 10
   },
   container: {
-    borderWidth: 0,
-    shadowColor: 'rgba(0,0,0, .0)',
-    shadowOffset: { height: 0, width: 0 },
-    shadowOpacity: 0,
-    shadowRadius: 0,
-    elevation: 0,
-    maxWidth: '100%',
-    marginTop: 50
+    paddingHorizontal: 20
   },
   input: {
     marginTop: 20

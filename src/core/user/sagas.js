@@ -94,8 +94,9 @@ function* registeredFlow(action) {
     NavigatorService.navigate('loginStack')
     displaySuccess('Succesfully registerd')
   } catch (error) {
+    console.log(error)
     yield put(registerError(error))
-    displayError(JSON.parse(error.errors))
+    displayError(error.errors)
   }
 }
 

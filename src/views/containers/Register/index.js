@@ -6,7 +6,10 @@ import { validate }   from './validations'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    loading: state.user.loading || false
+    loading: state.user.loading || false,
+    initialValues: {
+      interests: [""]
+    }
   }
 }
 

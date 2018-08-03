@@ -5,7 +5,7 @@ import { FormLabel, FormInput,
 import colors                         from '*/views/components/atoms/Colors'
 const Dimensions = require('Dimensions');
 
-const FieldInput = ({ input, secureTextEntry, label, required, placeholder,
+const InterestInput = ({ input, secureTextEntry, label, required, placeholder,
   children, disabled, autoCapitalize, style, className, multiline, meta: { touched, visited, error, warning } }) => {
 
   const is_multiline = multiline || false
@@ -13,11 +13,6 @@ const FieldInput = ({ input, secureTextEntry, label, required, placeholder,
 
   return (
     <View style={style}>
-      <FormLabel
-        labelStyle={{marginLeft: 0, marginRight: 0}}>
-        {required && <abbr title="required">*</abbr> }
-        {label}
-      </FormLabel>
       <FormInput
         {...input}
         type="text"
@@ -34,4 +29,4 @@ const FieldInput = ({ input, secureTextEntry, label, required, placeholder,
   )
 }
 
-export default FieldInput
+export default InterestInput

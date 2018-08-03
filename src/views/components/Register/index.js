@@ -1,7 +1,8 @@
 import React, { Component }               from 'react';
-import { Text, Image, ScrollView, View }        from 'react-native';
-import { Field }                          from 'redux-form'
+import { Text, Image, ScrollView, View }  from 'react-native';
+import { Field, FieldArray }              from 'redux-form'
 import FieldInput                         from '*/views/components/atoms/FieldInput'
+import InterestInput                      from '*/views/components/atoms/InterestInput'
 import FieldSelect                        from '*/views/components/atoms/FieldSelect'
 import { Button, Card, Divider }          from 'react-native-elements'
 import { NavigationActions }              from 'react-navigation'
@@ -10,9 +11,72 @@ import CustomCheckBox                     from '*/views/components/atoms/CustomC
 import style                              from './style'
 import { KeyboardAwareScrollView }        from 'react-native-keyboard-aware-scroll-view'
 import { Genders }                        from '*/utils/custom_services'
-import Swiper                             from 'react-native-swiper'
+import { List, ListItem, FormInput }      from 'react-native-elements'
+
+import {PagerDotIndicator, IndicatorViewPager} from 'rn-viewpager'
+import StepIndicator from 'react-native-step-indicator'
+
+const firstIndicatorStyles = {
+  stepIndicatorSize: 30,
+  currentStepIndicatorSize:40,
+  separatorStrokeWidth: 3,
+  currentStepStrokeWidth: 5,
+  stepStrokeCurrentColor: '#F05757',
+  separatorFinishedColor: '#F05757',
+  separatorUnFinishedColor: '#F05757',
+  stepIndicatorFinishedColor: '#F05757',
+  stepIndicatorUnFinishedColor: '#F05757',
+  stepIndicatorCurrentColor: '#ffffff',
+  stepIndicatorLabelFontSize: 15,
+  currentStepIndicatorLabelFontSize: 15,
+  stepIndicatorLabelCurrentColor: '#000000',
+  stepIndicatorLabelFinishedColor: '#ffffff',
+  stepIndicatorLabelUnFinishedColor: 'rgba(255,255,255,0.5)',
+  labelColor: '#666666',
+  labelSize: 12,
+  currentStepLabelColor: '#F05757'
+}
+
+const renderInterests = ({ fields, meta: { error } }) => (
+  <View style={{flex: 1}}>
+    <Button
+      title="Add Interest"
+      onPress={() => fields.push()}
+      containerViewStyle={{left: 0, right: 0, position: 'absolute', bottom: 5, zIndex: 55 }}
+      buttonStyle={style.button} />
+    <ScrollView style={{flex: 1}}>
+      <List style={{borderTopWidth: 0, borderBottomWidth: 0}}>
+        {
+          fields.map((item, i) => (
+            <ListItem
+              key={i}
+              hideChevron={true}
+              containerStyle={{borderTopWidth: 0, borderBottomWidth: 0}}
+              title={
+                <View>
+                  <Field
+                    name={item}
+                    placeholder={`Interest #${i + 1}`}
+                    component={InterestInput} />
+                </View>
+              }
+            />
+          ))
+        }
+      </List>
+    </ScrollView>
+  </View>
+)
 
 export default class Register extends Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      currentPage: 0
+    }
+  }
 
   onRegister = (values) => {
     this.props.register(values)
@@ -26,21 +90,36 @@ export default class Register extends Component {
     return Genders().map(m => ({ value: m.key, label: m.label}) )
   }
 
+  updatePage (myPage) {
+    this.viewPager.setPage(myPage);
+  }
+
   render() {
     const { handleSubmit } = this.props
     return (
       <View style={style.mainBackground}>
-        <Swiper loop={false} showsButtons={false}>
+        <View style={{paddingHorizontal: 20, alignSelf: 'center', marginTop: 50}}>
+          <Image
+            style={{maxHeight: 100, alignSelf: 'center'}}
+            source={require('*/views/assets/logo.png')}
+            resizeMode="contain" />
+        </View>
+        <View style={{marginVertical:10}}>
+          <StepIndicator
+            customStyles={firstIndicatorStyles}
+            stepCount={6}
+            onPress={(p) => this.updatePage(p)}
+            currentPosition={this.state.currentPage} />
+        </View>
+        <IndicatorViewPager
+          style={style.mainBackground}
+          setPage={this.state.currentPage}
+          ref={viewPager => { this.viewPager = viewPager; }}
+          onPageSelected={(page) => {this.setState({currentPage:page.position})}} >
           <View>
-            <Card
-              containerStyle={style.container}
-              image={require('*/views/assets/logo.png')}
-              imageWrapperStyle={{paddingHorizontal: 20}}
-              imageStyle={{'maxHeight': 100}}
-              imageProps={{resizeMode: "contain"}} >
+            <KeyboardAwareScrollView style={style.container}>
               <Field
                 name="email"
-                type="text"
                 placeholder="Email"
                 component={FieldInput} />
 
@@ -55,15 +134,10 @@ export default class Register extends Component {
                 secureTextEntry={true}
                 placeholder="Re-enter Password"
                 component={FieldInput} />
-            </Card>
+            </KeyboardAwareScrollView>
           </View>
           <View>
-            <Card
-              containerStyle={style.container}
-              image={require('*/views/assets/logo.png')}
-              imageWrapperStyle={{paddingHorizontal: 20}}
-              imageStyle={{'maxHeight': 100}}
-              imageProps={{resizeMode: "contain"}} >
+            <KeyboardAwareScrollView style={style.container}>
               <Field
                 name="name"
                 placeholder="Name"
@@ -73,7 +147,6 @@ export default class Register extends Component {
                 name="gender"
                 placeholder="Gender"
                 style={style.input}
-                width={90}
                 options={this.getGenders()}
                 component={FieldSelect} />
 
@@ -81,110 +154,57 @@ export default class Register extends Component {
                 name="age"
                 placeholder="Age"
                 component={FieldInput} />
-            </Card>
+            </KeyboardAwareScrollView>
           </View>
           <View>
-            <Card
-              containerStyle={style.container}
-              image={require('*/views/assets/logo.png')}
-              imageWrapperStyle={{paddingHorizontal: 20}}
-              imageStyle={{'maxHeight': 100}}
-              imageProps={{resizeMode: "contain"}} >
+            <KeyboardAwareScrollView style={style.container}>
               <Field
                 name="description"
                 multiline = {true}
                 placeholder="Description"
                 component={FieldInput} />
-            </Card>
+            </KeyboardAwareScrollView>
+          </View>
+          <View style={style.container}>
+            <FieldArray name="interests" component={renderInterests} />
           </View>
           <View>
-            <Card
-              containerStyle={style.container}
-              image={require('*/views/assets/logo.png')}
-              imageWrapperStyle={{paddingHorizontal: 20}}
-              imageStyle={{'maxHeight': 100}}
-              imageProps={{resizeMode: "contain"}} >
-              <Field
-                name="favorite_movie"
-                placeholder="Favorite Movie"
-                component={FieldInput} />
-
-              <Field
-                name="favorite_food"
-                placeholder="Favorite Food"
-                component={FieldInput} />
-
-              <Field
-                name="favorite_song"
-                placeholder="Favorite Song"
-                component={FieldInput} />
-
-            </Card>
-          </View>
-          <View>
-            <Card
-              containerStyle={style.container}
-              image={require('*/views/assets/logo.png')}
-              imageWrapperStyle={{paddingHorizontal: 20}}
-              imageStyle={{'maxHeight': 100}}
-              imageProps={{resizeMode: "contain"}} >
+            <KeyboardAwareScrollView style={style.container}>
               <Field
                 name="job_title"
                 placeholder="Job Title"
                 component={FieldInput} />
 
               <Field
-                name="hobbies"
-                placeholder="Hobbies"
-                component={FieldInput} />
-
-              <Field
                 name="school"
                 placeholder="School"
                 component={FieldInput} />
-            </Card>
+            </KeyboardAwareScrollView>
           </View>
-          <View>
-            <Card
-              containerStyle={style.container}
-              image={require('*/views/assets/logo.png')}
-              imageWrapperStyle={{paddingHorizontal: 20}}
-              imageStyle={{'maxHeight': 100}}
-              imageProps={{resizeMode: "contain"}} >
-              <Field
-                name="social_media_link"
-                placeholder="Social Media Name"
-                component={FieldInput} />
+          <View style={style.container}>
+            <Field
+              name="allow_male"
+              label="Into Males"
+              style={{marginTop: 10}}
+              component={CustomCheckBox} />
 
-              <Field
-                name="snap_chat_name"
-                placeholder="Snap Chat Name"
-                component={FieldInput} />
+            <Field
+              name="allow_female"
+              label="Into Females"
+              component={CustomCheckBox} />
 
-              <Field
-                name="allow_male"
-                label="Into Males"
-                style={{marginTop: 10}}
-                component={CustomCheckBox} />
+            <Field
+              name="allow_other"
+              label="Into Other"
+              component={CustomCheckBox} />
 
-              <Field
-                name="allow_female"
-                label="Into Females"
-                component={CustomCheckBox} />
-
-              <Field
-                name="allow_other"
-                label="Into Other"
-                component={CustomCheckBox} />
-
-              <Button
-                title="Register"
-                onPress={handleSubmit(this.onRegister)}
-                containerViewStyle={{marginLeft: 0, marginRight: 0}}
-                buttonStyle={style.button} />
-            </Card>
+            <Button
+              title="Register"
+              onPress={handleSubmit(this.onRegister)}
+              containerViewStyle={{marginLeft: 0, marginRight: 0}}
+              buttonStyle={style.button} />
           </View>
-        </Swiper>
+        </IndicatorViewPager>
       </View>
     )
   }
