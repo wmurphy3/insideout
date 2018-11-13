@@ -1,15 +1,20 @@
 {
   "expo": {
-    "sdkVersion": "24.0.0",
+    "sdkVersion": "30.0.0",
     "icon": "./src/views/assets/mobile_logo.png",
     "name": "InsideOut",
     "slug": "insideout",
-    "version": "0.0.2",
+    "version": "0.0.4",
     "ios": {
       "bundleIdentifier": "com.insideout.dev"
     },
     "android": {
       "package": "com.insideout.dev"
-    }
+    },
+    "splash": {
+      "image": "./src/views/assets/splash.png",
+      "backgroundColor": "#ffffff",
+      "resizeMode": "cover"
+    },
   }
 }

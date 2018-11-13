@@ -12,12 +12,14 @@ const FieldInput = ({ input, secureTextEntry, label, required, placeholder,
   const width = Dimensions.get('window').width;
 
   return (
-    <View style={style}>
-      <FormLabel
-        labelStyle={{marginLeft: 0, marginRight: 0}}>
-        {required && <abbr title="required">*</abbr> }
-        {label}
-      </FormLabel>
+    <View style={[style], {marginBottom: 15}}>
+      {label &&
+        <FormLabel
+          labelStyle={{marginLeft: 0, marginRight: 0}}>
+          {required && <abbr title="required">*</abbr> }
+          {label}
+        </FormLabel>
+      }
       <FormInput
         {...input}
         type="text"

@@ -20,8 +20,5 @@ export default {
   },
   container: {
     paddingHorizontal: 20
-  },
-  input: {
-    marginTop: 20
   }
 }

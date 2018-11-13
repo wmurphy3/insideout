@@ -42,23 +42,6 @@ function* logout () {
   yield put(unsetUser())
 }
 
-function* refresh(credentialsOrToken) {
-
-  const { response } = yield race({
-    response: call(apiUser.refreshToken, credentialsOrToken),
-    signout : take(USER_UNSET)
-  })
-
-  if (response && response.access_token) {
-    yield call(setAuthToken, response)
-    yield put(setUser(response))
-    return response
-  } else {
-    yield call(logout)
-    return null
-  }
-}
-
 function* authorize(credentialsOrToken, turn_touch_id_on) {
   try {
     const { response } = yield race({
@@ -78,7 +61,6 @@ function* authorize(credentialsOrToken, turn_touch_id_on) {
       return null
     }
   } catch (error) {
-    console.log(error)
     displayError("Could not login. Please try again.")
     yield put(receiveLoginError(error))
   }
@@ -175,29 +157,22 @@ function* loginWatcher () {
 
   while (true) {
     const data = yield take(LOGIN_REQUESTED)
-    token = yield call(authorize, data.user, data.turn_touch_id_on)
+    token = yield call(authorize, data.user)
 
     if (!token)
       continue
 
     let userSignedOut = false
     while(!userSignedOut) {
-      const { expired } = yield race({
+      const { expired, signout } = yield race({
         expired: call(delay, token.expires_in * 1000),
         signout: take(USER_UNSET)
       })
 
-      // if (expired) {
-      //   token = yield call(refresh, token)
-      //   if(!token) {
-      //     userSignedOut = true
-      //     yield call(logout)
-      //   }
-      // } else {
-      //   userSignedOut = true
-      //   yield call(logout)
-      // }
-
+      if(signout) {
+        userSignedOut = true
+        yield call(logout)
+      }
     }
   }
 }

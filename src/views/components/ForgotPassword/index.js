@@ -35,7 +35,9 @@ export default class ForgotPassword extends Component {
             component={FieldInput} />
 
           <Button
-            title="Send Email"
+            title="SEND EMAIL"
+            fontSize={16}
+            borderRadius={5}
             onPress={handleSubmit(this.onForgotPassword)}
             containerViewStyle={{marginLeft: 0, marginRight: 0}}
             buttonStyle={style.button} />

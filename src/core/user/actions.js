@@ -38,10 +38,9 @@ export const unsetUser = () => ({
   type: USER_UNSET
 })
 
-export const login = (user, turn_touch_id_on) => ({
+export const login = (user) => ({
   type: LOGIN_REQUESTED,
-  user: user,
-  turn_touch_id_on: turn_touch_id_on
+  user: user
 })
 
 export const saveToken = (data) => ({

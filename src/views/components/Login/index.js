@@ -27,7 +27,7 @@ export default class LoginScreen extends Component {
   }
 
   onLogin = (values) => {
-    this.props.onLogin(values, this.state.turn_touch_id_on)
+    this.props.onLogin(values)
   }
 
   gotToForgotPassword() {
@@ -46,8 +46,10 @@ export default class LoginScreen extends Component {
     const { handleSubmit, user } = this.props
       return (
         <Button
-          title="Login"
+          title="LOGIN"
           onPress={handleSubmit(this.onLogin)}
+          fontSize={16}
+          borderRadius={5}
           containerViewStyle={{marginLeft: 0, marginRight: 0}}
           buttonStyle={style.button} />
       )

@@ -42,11 +42,13 @@ export default class FieldSelect extends Component {
 
     const styles = StyleSheet.create({
       selectInput: {
-        minHeight:        36,
+        minHeight:        30,
         backgroundColor:  '#FFFFFF',
         flexDirection:    'row',
         borderBottomWidth: 1,
-        borderBottomColor: "#bdc6cf"
+        borderBottomColor: "#bdc6cf",
+        marginBottom: 15,
+        marginTop: 5
       },
       selectInputLarge: {
         width: SCREEN_WIDTH - width
@@ -60,7 +62,7 @@ export default class FieldSelect extends Component {
           options={this.setupOptions()}
           onCancelEditing={() => console.log('onCancel')}
           onSubmitEditing={this.onSubmit}
-          labelStyle={{color: this.state.color, fontSize: 13, marginTop: 7}}
+          labelStyle={{color: this.state.color, fontSize: 16}}
           style={[styles.selectInput, styles.selectInputLarge]}
         />
         {touched &&

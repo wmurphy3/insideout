@@ -11,7 +11,7 @@ import CustomCheckBox                     from '*/views/components/atoms/CustomC
 import style                              from './style'
 import { KeyboardAwareScrollView }        from 'react-native-keyboard-aware-scroll-view'
 import { Genders }                        from '*/utils/custom_services'
-import { List, ListItem, FormInput }      from 'react-native-elements'
+import { List, ListItem, FormInput, Icon }      from 'react-native-elements'
 
 import {PagerDotIndicator, IndicatorViewPager} from 'rn-viewpager'
 import StepIndicator from 'react-native-step-indicator'
@@ -38,14 +38,9 @@ const firstIndicatorStyles = {
 }
 
 const renderInterests = ({ fields, meta: { error } }) => (
-  <View style={{flex: 1}}>
-    <Button
-      title="Add Interest"
-      onPress={() => fields.push()}
-      containerViewStyle={{left: 0, right: 0, position: 'absolute', bottom: 5, zIndex: 55 }}
-      buttonStyle={style.button} />
-    <ScrollView style={{flex: 1}}>
-      <List style={{borderTopWidth: 0, borderBottomWidth: 0}}>
+  <View style={{flex: 1, borderTopWidth: 0}}>
+    <ScrollView style={{flex: 1, borderTopWidth: 0}}>
+      <List containerStyle={{borderTopWidth: 0, borderBottomWidth: 0, borderColor: '#fff'}}>
         {
           fields.map((item, i) => (
             <ListItem
@@ -53,11 +48,30 @@ const renderInterests = ({ fields, meta: { error } }) => (
               hideChevron={true}
               containerStyle={{borderTopWidth: 0, borderBottomWidth: 0}}
               title={
-                <View>
-                  <Field
-                    name={item}
-                    placeholder={`Interest #${i + 1}`}
-                    component={InterestInput} />
+                <View style={{flexDirection: 'row'}}>
+                  <View style={{width: '80%'}}>
+                    <Field
+                      name={item}
+                      placeholder={`Interest #${i + 1}`}
+                      component={InterestInput} />
+                  </View>
+                  <View style={{width: '20%'}}>
+                    {(fields.length - 1) === i ?
+                      <Icon
+                        raised
+                        name='plus'
+                        type='font-awesome'
+                        color='green'
+                        onPress={() => fields.push()} />
+                      :
+                      <Icon
+                        raised
+                        name='remove'
+                        type='font-awesome'
+                        color='#F05757'
+                        onPress={() => fields.remove(i)} />
+                    }
+                  </View>
                 </View>
               }
             />
@@ -107,7 +121,7 @@ export default class Register extends Component {
         <View style={{marginVertical:10}}>
           <StepIndicator
             customStyles={firstIndicatorStyles}
-            stepCount={6}
+            stepCount={5}
             onPress={(p) => this.updatePage(p)}
             currentPosition={this.state.currentPage} />
         </View>
@@ -118,6 +132,10 @@ export default class Register extends Component {
           onPageSelected={(page) => {this.setState({currentPage:page.position})}} >
           <View>
             <KeyboardAwareScrollView style={style.container}>
+              <Field
+                name="name"
+                placeholder="Name"
+                component={FieldInput} />
               <Field
                 name="email"
                 placeholder="Email"
@@ -133,14 +151,6 @@ export default class Register extends Component {
                 name="password_confirmation"
                 secureTextEntry={true}
                 placeholder="Re-enter Password"
-                component={FieldInput} />
-            </KeyboardAwareScrollView>
-          </View>
-          <View>
-            <KeyboardAwareScrollView style={style.container}>
-              <Field
-                name="name"
-                placeholder="Name"
                 component={FieldInput} />
 
               <Field
@@ -199,7 +209,9 @@ export default class Register extends Component {
               component={CustomCheckBox} />
 
             <Button
-              title="Register"
+              title="REGISTER"
+              fontSize={16}
+              borderRadius={5}
               onPress={handleSubmit(this.onRegister)}
               containerViewStyle={{marginLeft: 0, marginRight: 0}}
               buttonStyle={style.button} />

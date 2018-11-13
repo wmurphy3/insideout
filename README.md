@@ -1,4 +1,4 @@
-## MobilePay
+## InsideOut
 
 ### `yarn install`
 ### `yarn start`

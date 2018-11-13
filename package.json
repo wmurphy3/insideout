@@ -1,6 +1,6 @@
 {
   "name": "InsideOut",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "devDependencies": {
     "babel-plugin-root-import": "^5.1.0",
@@ -25,16 +25,17 @@
   "dependencies": {
     "babel-preset-expo": "^4.0.0",
     "cross-fetch": "^1.1.1",
+    "electron": "^3.0.8",
     "email-validator": "^1.1.1",
-    "expo": "^24.0.0",
+    "expo": "^30.0.0",
     "history": "^4.7.2",
     "inflection": "^1.12.0",
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
     "numeral": "^2.0.6",
     "pusher-js": "^4.2.2",
-    "react": "16.0.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-24.0.0.tar.gz",
+    "react": "16.3.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-native-calendars": "^1.17.0",
     "react-native-collapsible": "^0.10.0",
     "react-native-datepicker": "^1.6.0",
