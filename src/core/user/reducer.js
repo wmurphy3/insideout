@@ -69,7 +69,7 @@ export const userReducer = (state = initial, action) => {
       return { ...state, loading: true }
 
     case REGISTERED_ERROR:
-      return { ...state, error : action.error }
+      return { ...state, error : action.error, loading: false }
 
     case USER_UPDATED:
       return { ...state, loading: true }

@@ -20,5 +20,11 @@ export default {
   },
   container: {
     paddingHorizontal: 20
-  }
+  },
+  contact_link: {
+    color: 'gray',
+    fontSize: 10,
+    textAlign: 'center',
+    marginTop: 10
+  },
 }

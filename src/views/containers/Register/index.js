@@ -7,8 +7,16 @@ import { validate }   from './validations'
 const mapStateToProps = (state, ownProps) => {
   return {
     loading: state.user.loading || false,
+    user: state.user,
     initialValues: {
-      interests: [""]
+      interests: [""],
+      // email: "wmurphy2@ventanex.com",
+      // password: "password",
+      // password_confirmation: "password",
+      // age: '30',
+      // gender: "male",
+      // name: "William Murphy",
+      // description: "This is a test"
     }
   }
 }

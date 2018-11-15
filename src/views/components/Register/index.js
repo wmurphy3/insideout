@@ -12,9 +12,16 @@ import style                              from './style'
 import { KeyboardAwareScrollView }        from 'react-native-keyboard-aware-scroll-view'
 import { Genders }                        from '*/utils/custom_services'
 import { List, ListItem, FormInput, Icon }      from 'react-native-elements'
+import { CreditCardInput }                  from "react-native-credit-card-input"
+import Stripe                             from 'react-native-stripe-api'
 
 import {PagerDotIndicator, IndicatorViewPager} from 'rn-viewpager'
 import StepIndicator from 'react-native-step-indicator'
+
+import { REACT_APP_STRIPE_KEY }              from 'react-native-dotenv'
+
+const apiKey = REACT_APP_STRIPE_KEY
+const client = new Stripe(apiKey)
 
 const firstIndicatorStyles = {
   stepIndicatorSize: 30,
@@ -88,11 +95,15 @@ export default class Register extends Component {
     super(props)
 
     this.state = {
-      currentPage: 0
+      currentPage: 0,
+      register: true,
+      number: null,
+      card: {}
     }
   }
 
   onRegister = (values) => {
+    values['card'] = this.state.card
     this.props.register(values)
   }
 
@@ -108,8 +119,27 @@ export default class Register extends Component {
     this.viewPager.setPage(myPage);
   }
 
+  setCard = async(form) => {
+    let month = form.values.expiry.substring(0, 2)
+    let year = form.values.expiry.substring(3, 5)
+
+    if(form.valid) {
+
+      this.setState({
+        register: false,
+        card: {
+          number: form.values.number,
+          exp_month: month,
+          exp_year: year,
+          cvc: form.values.cvc,
+          address_zip: form.values.postalCode,
+        }
+      })
+    }
+  }
+
   render() {
-    const { handleSubmit } = this.props
+    const { handleSubmit, user } = this.props
     return (
       <View style={style.mainBackground}>
         <View style={{paddingHorizontal: 20, alignSelf: 'center', marginTop: 50}}>
@@ -121,7 +151,7 @@ export default class Register extends Component {
         <View style={{marginVertical:10}}>
           <StepIndicator
             customStyles={firstIndicatorStyles}
-            stepCount={5}
+            stepCount={6}
             onPress={(p) => this.updatePage(p)}
             currentPosition={this.state.currentPage} />
         </View>
@@ -207,14 +237,29 @@ export default class Register extends Component {
               name="allow_other"
               label="Into Other"
               component={CustomCheckBox} />
+          </View>
 
-            <Button
-              title="REGISTER"
-              fontSize={16}
-              borderRadius={5}
-              onPress={handleSubmit(this.onRegister)}
-              containerViewStyle={{marginLeft: 0, marginRight: 0}}
-              buttonStyle={style.button} />
+          <View>
+            <KeyboardAwareScrollView>
+              <CreditCardInput
+                requiresName
+                requiresCVC
+                validColor={"black"}
+                invalidColor={"red"}
+                placeholderColor={"darkgray"}
+                onChange={(form) => this.setCard(form)} />
+
+              <Text style={style.contact_link}>You are being charged a one-time $10.00 fee. This helps keep out bots and maintians the application for fututre versions. By clicking register, you are authorizing a one-time $10.00 payment.</Text>
+
+              <Button
+                title="REGISTER"
+                fontSize={16}
+                borderRadius={5}
+                onPress={handleSubmit(this.onRegister)}
+                disabled={this.state.register}
+                containerViewStyle={{marginLeft: 20, marginRight: 20, marginTop: 20}}
+                buttonStyle={style.button} />
+            </KeyboardAwareScrollView>
           </View>
         </IndicatorViewPager>
       </View>

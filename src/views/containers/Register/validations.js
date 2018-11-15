@@ -27,5 +27,13 @@ export const validate = (values) => {
     errors.gender = 'Required'
   }
 
+  if(!values.name) {
+    errors.name = 'Required'
+  }
+
+  if(!values.description) {
+    errors.description = 'Required'
+  }
+
   return errors
 }
