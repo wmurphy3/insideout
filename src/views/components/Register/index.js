@@ -1,93 +1,16 @@
-import React, { Component }               from 'react';
-import { Text, Image, ScrollView, View }  from 'react-native';
-import { Field, FieldArray }              from 'redux-form'
-import FieldInput                         from '*/views/components/atoms/FieldInput'
-import InterestInput                      from '*/views/components/atoms/InterestInput'
-import FieldSelect                        from '*/views/components/atoms/FieldSelect'
-import { Button, Card, Divider }          from 'react-native-elements'
-import { NavigationActions }              from 'react-navigation'
-import NavigatorService                   from '*/utils/navigator'
-import CustomCheckBox                     from '*/views/components/atoms/CustomCheckBox'
-import style                              from './style'
-import { KeyboardAwareScrollView }        from 'react-native-keyboard-aware-scroll-view'
-import { Genders }                        from '*/utils/custom_services'
-import { List, ListItem, FormInput, Icon }      from 'react-native-elements'
-import { CreditCardInput }                  from "react-native-credit-card-input"
-import Stripe                             from 'react-native-stripe-api'
-
-import {PagerDotIndicator, IndicatorViewPager} from 'rn-viewpager'
-import StepIndicator from 'react-native-step-indicator'
-
-import { REACT_APP_STRIPE_KEY }              from 'react-native-dotenv'
-
-const apiKey = REACT_APP_STRIPE_KEY
-const client = new Stripe(apiKey)
-
-const firstIndicatorStyles = {
-  stepIndicatorSize: 30,
-  currentStepIndicatorSize:40,
-  separatorStrokeWidth: 3,
-  currentStepStrokeWidth: 5,
-  stepStrokeCurrentColor: '#F05757',
-  separatorFinishedColor: '#F05757',
-  separatorUnFinishedColor: '#F05757',
-  stepIndicatorFinishedColor: '#F05757',
-  stepIndicatorUnFinishedColor: '#F05757',
-  stepIndicatorCurrentColor: '#ffffff',
-  stepIndicatorLabelFontSize: 15,
-  currentStepIndicatorLabelFontSize: 15,
-  stepIndicatorLabelCurrentColor: '#000000',
-  stepIndicatorLabelFinishedColor: '#ffffff',
-  stepIndicatorLabelUnFinishedColor: 'rgba(255,255,255,0.5)',
-  labelColor: '#666666',
-  labelSize: 12,
-  currentStepLabelColor: '#F05757'
-}
-
-const renderInterests = ({ fields, meta: { error } }) => (
-  <View style={{flex: 1, borderTopWidth: 0}}>
-    <ScrollView style={{flex: 1, borderTopWidth: 0}}>
-      <List containerStyle={{borderTopWidth: 0, borderBottomWidth: 0, borderColor: '#fff'}}>
-        {
-          fields.map((item, i) => (
-            <ListItem
-              key={i}
-              hideChevron={true}
-              containerStyle={{borderTopWidth: 0, borderBottomWidth: 0}}
-              title={
-                <View style={{flexDirection: 'row'}}>
-                  <View style={{width: '80%'}}>
-                    <Field
-                      name={item}
-                      placeholder={`Interest #${i + 1}`}
-                      component={InterestInput} />
-                  </View>
-                  <View style={{width: '20%'}}>
-                    {(fields.length - 1) === i ?
-                      <Icon
-                        raised
-                        name='plus'
-                        type='font-awesome'
-                        color='green'
-                        onPress={() => fields.push()} />
-                      :
-                      <Icon
-                        raised
-                        name='remove'
-                        type='font-awesome'
-                        color='#F05757'
-                        onPress={() => fields.remove(i)} />
-                    }
-                  </View>
-                </View>
-              }
-            />
-          ))
-        }
-      </List>
-    </ScrollView>
-  </View>
-)
+import React, { Component }                 from 'react';
+import { Text, Image, ScrollView, View }    from 'react-native';
+import { NavigationActions }                from 'react-navigation'
+import NavigatorService                     from '*/utils/navigator'
+import style                                from './style'
+import { KeyboardAwareScrollView }          from 'react-native-keyboard-aware-scroll-view'
+import Spinner                              from '*/views/components/atoms/Spinner'
+import General                              from './general'
+import Description                          from './description'
+import Interests                            from './interests'
+import Work                                 from './work'
+import Into                                 from './into'
+import Card                                 from './card'
 
 export default class Register extends Component {
 
@@ -95,15 +18,14 @@ export default class Register extends Component {
     super(props)
 
     this.state = {
-      currentPage: 0,
-      register: true,
-      number: null,
-      card: {}
+      page: 1
     }
+    this.nextPage = this.nextPage.bind(this)
+    this.previousPage = this.previousPage.bind(this)
+    this.onRegister = this.onRegister.bind(this)
   }
 
   onRegister = (values) => {
-    values['card'] = this.state.card
     this.props.register(values)
   }
 
@@ -111,35 +33,22 @@ export default class Register extends Component {
     NavigatorService.navigate('Login')
   }
 
-  getGenders() {
-    return Genders().map(m => ({ value: m.key, label: m.label}) )
+  nextPage() {
+    this.setState({ page: this.state.page + 1 })
   }
 
-  updatePage (myPage) {
-    this.viewPager.setPage(myPage);
-  }
-
-  setCard = async(form) => {
-    let month = form.values.expiry.substring(0, 2)
-    let year = form.values.expiry.substring(3, 5)
-
-    if(form.valid) {
-
-      this.setState({
-        register: false,
-        card: {
-          number: form.values.number,
-          exp_month: month,
-          exp_year: year,
-          cvc: form.values.cvc,
-          address_zip: form.values.postalCode,
-        }
-      })
-    }
+  previousPage() {
+    this.setState({ page: this.state.page - 1 })
   }
 
   render() {
     const { handleSubmit, user } = this.props
+    const { page } = this.state
+
+    if(user.loading) {
+      return (<Spinner />)
+    }
+
     return (
       <View style={style.mainBackground}>
         <View style={{paddingHorizontal: 20, alignSelf: 'center', marginTop: 50}}>
@@ -148,120 +57,17 @@ export default class Register extends Component {
             source={require('*/views/assets/logo.png')}
             resizeMode="contain" />
         </View>
-        <View style={{marginVertical:10}}>
-          <StepIndicator
-            customStyles={firstIndicatorStyles}
-            stepCount={6}
-            onPress={(p) => this.updatePage(p)}
-            currentPosition={this.state.currentPage} />
+        <View style={{paddingHorizontal: 20, alignSelf: 'center', marginTop: 10}}>
+          <Text>{this.state.page} of 6 Complete</Text>
         </View>
-        <IndicatorViewPager
-          style={style.mainBackground}
-          setPage={this.state.currentPage}
-          ref={viewPager => { this.viewPager = viewPager; }}
-          onPageSelected={(page) => {this.setState({currentPage:page.position})}} >
-          <View>
-            <KeyboardAwareScrollView style={style.container}>
-              <Field
-                name="name"
-                placeholder="Name"
-                component={FieldInput} />
-              <Field
-                name="email"
-                placeholder="Email"
-                component={FieldInput} />
+        { page === 1 && <General onSubmit={this.nextPage} /> }
+        { page === 2 && <Description previousPage={this.previousPage} onSubmit={this.nextPage} /> }
+        { page === 3 && <Interests previousPage={this.previousPage} onSubmit={this.nextPage} /> }
+        { page === 4 && <Work previousPage={this.previousPage} onSubmit={this.nextPage} />}
+        { page === 5 && <Into previousPage={this.previousPage} onSubmit={this.nextPage} /> }
+        { page === 6 && <Card previousPage={this.previousPage} onSubmit={this.onRegister} setCard={this.setCard} cardValid={this.state.cardValid} />}
 
-              <Field
-                name="password"
-                secureTextEntry={true}
-                placeholder="Password"
-                component={FieldInput} />
-
-              <Field
-                name="password_confirmation"
-                secureTextEntry={true}
-                placeholder="Re-enter Password"
-                component={FieldInput} />
-
-              <Field
-                name="gender"
-                placeholder="Gender"
-                style={style.input}
-                options={this.getGenders()}
-                component={FieldSelect} />
-
-              <Field
-                name="age"
-                placeholder="Age"
-                component={FieldInput} />
-            </KeyboardAwareScrollView>
-          </View>
-          <View>
-            <KeyboardAwareScrollView style={style.container}>
-              <Field
-                name="description"
-                multiline = {true}
-                placeholder="Description"
-                component={FieldInput} />
-            </KeyboardAwareScrollView>
-          </View>
-          <View style={style.container}>
-            <FieldArray name="interests" component={renderInterests} />
-          </View>
-          <View>
-            <KeyboardAwareScrollView style={style.container}>
-              <Field
-                name="job_title"
-                placeholder="Job Title"
-                component={FieldInput} />
-
-              <Field
-                name="school"
-                placeholder="School"
-                component={FieldInput} />
-            </KeyboardAwareScrollView>
-          </View>
-          <View style={style.container}>
-            <Field
-              name="allow_male"
-              label="Into Males"
-              style={{marginTop: 10}}
-              component={CustomCheckBox} />
-
-            <Field
-              name="allow_female"
-              label="Into Females"
-              component={CustomCheckBox} />
-
-            <Field
-              name="allow_other"
-              label="Into Other"
-              component={CustomCheckBox} />
-          </View>
-
-          <View>
-            <KeyboardAwareScrollView>
-              <CreditCardInput
-                requiresName
-                requiresCVC
-                validColor={"black"}
-                invalidColor={"red"}
-                placeholderColor={"darkgray"}
-                onChange={(form) => this.setCard(form)} />
-
-              <Text style={style.contact_link}>You are being charged a one-time $10.00 fee. This helps keep out bots and maintians the application for fututre versions. By clicking register, you are authorizing a one-time $10.00 payment.</Text>
-
-              <Button
-                title="REGISTER"
-                fontSize={16}
-                borderRadius={5}
-                onPress={handleSubmit(this.onRegister)}
-                disabled={this.state.register}
-                containerViewStyle={{marginLeft: 20, marginRight: 20, marginTop: 20}}
-                buttonStyle={style.button} />
-            </KeyboardAwareScrollView>
-          </View>
-        </IndicatorViewPager>
+        <Text style={style.link}>Already have an account? <Text onPress={() => this.goToLogin()} style={style.login_link}>Login</Text></Text>
       </View>
     )
   }

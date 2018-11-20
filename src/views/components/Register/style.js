@@ -19,7 +19,8 @@ export default {
     marginTop: 10
   },
   container: {
-    paddingHorizontal: 20
+    paddingHorizontal: 40,
+    marginTop: 20
   },
   contact_link: {
     color: 'gray',

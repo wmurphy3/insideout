@@ -1,13 +1,15 @@
 import colors        from '*/views/components/atoms/Colors'
+import { Dimensions }from 'react-native'
 
 export default {
   mainBackground: {
     backgroundColor: colors.background,
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20
+  },
+  container: {
+    marginLeft: 50,
+    marginRight: 50,
+    width: (Dimensions.get('window').width - 100)
   },
   forgot_password_link: {
     color: colors.main,
@@ -42,26 +44,5 @@ export default {
   divider: {
     backgroundColor: colors.border,
     marginTop: 10
-  },
-  container: {
-    borderWidth: 0,
-    shadowColor: 'rgba(0,0,0, .0)',
-    shadowOffset: { height: 0, width: 0 },
-    shadowOpacity: 0,
-    shadowRadius: 0,
-    elevation: 0,
-    maxWidth: '100%'
-  },
-  set_up_touch: {
-    alignSelf: 'flex-end'
-  },
-  touch_id: {
-    marginLeft:0,
-    marginRight: 0,
-    padding: 0,
-    margin: 0,
-    marginTop: 5,
-    borderWidth: 0,
-    backgroundColor: '#fff'
   }
 }

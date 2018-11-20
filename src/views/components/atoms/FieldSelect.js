@@ -47,7 +47,6 @@ export default class FieldSelect extends Component {
         flexDirection:    'row',
         borderBottomWidth: 1,
         borderBottomColor: "#bdc6cf",
-        marginBottom: 15,
         marginTop: 5
       },
       selectInputLarge: {
@@ -56,7 +55,7 @@ export default class FieldSelect extends Component {
     });
 
     return (
-      <View style={style}>
+      <View style={[style, {marginBottom: 15}]}>
         <SelectInput
           value={this.state.value}
           options={this.setupOptions()}

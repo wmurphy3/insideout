@@ -122,6 +122,13 @@ export default class DashboardScreen extends Component {
             rightIcon={{name: 'visibility'}}
           />
         ))}
+        {people.data.length < 1 &&
+          <ListItem
+            title={
+              <Text>Currently no one to chat with. Invite more friends to use the app!</Text>
+            }
+          />
+        }
       </List>
     );
   }

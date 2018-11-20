@@ -27,11 +27,12 @@ const FieldInput = ({ input, secureTextEntry, label, required, placeholder,
         multiline={is_multiline}
         secureTextEntry={secureTextEntry}
         placeholder={placeholder}
+        inputStyle={{width: (Dimensions.width - 60)}}
         containerStyle={{marginLeft: 0, marginRight: 0}}>
           {children}
       </FormInput>
       {touched &&
-        ((error && <FormValidationMessage>{error}</FormValidationMessage>))}
+        ((error && <FormValidationMessage labelStyle={{marginLeft: 0}}>{error}</FormValidationMessage>))}
     </View>
   )
 }
