@@ -31,10 +31,6 @@ export default class CreditCardInput extends Component {
 
     return(
       <View style={[style, {marginBottom: 15}]}>
-        <FormLabel>
-          {required && <abbr title="required">*</abbr> }
-          {label}
-        </FormLabel>
         <TextInputMask
         	type={'credit-card'}
           returnKeyType='done'

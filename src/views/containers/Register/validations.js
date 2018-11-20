@@ -74,10 +74,6 @@ export const validate = (values) => {
     errors.exp_year = 'Must be a valid year. Ex: 19'
   }
 
-  if(!values.address_zip) {
-    errors.address_zip = 'Required'
-  }
-
   if(!values.allow_male && !values.allow_female && !values.allow_other) {
     errors.allow_male = 'Must choose at least one'
   }

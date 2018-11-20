@@ -14,25 +14,33 @@ const Card = (props) => {
 
   return (
     <KeyboardAwareScrollView style={style.container}>
-      <Field
-        name="number"
-        component={CreditCardInput} />
-      <Field
-        name="cvc"
-        placeholder="CVC"
-        component={FieldInput} />
-      <Field
-        name="exp_month"
-        placeholder="Exp Month(01)"
-        component={FieldInput} />
-      <Field
-        name="exp_year"
-        placeholder="Exp Year(19)"
-        component={FieldInput} />
-      <Field
-        name="address_zip"
-        placeholder="Postal Code"
-        component={FieldInput} />
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={{width: '75%'}}>
+          <Field
+            name="number"
+            component={CreditCardInput} />
+        </View>
+        <View style={{width: '15%'}}>
+          <Field
+            name="cvc"
+            placeholder="CVC"
+            component={FieldInput} />
+        </View>
+      </View>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={{width: '45%'}}>
+          <Field
+            name="exp_month"
+            placeholder="Exp Month(01)"
+            component={FieldInput} />
+        </View>
+        <View style={{width: '45%'}}>
+          <Field
+            name="exp_year"
+            placeholder="Exp Year(19)"
+            component={FieldInput} />
+        </View>
+      </View>
 
       <Text style={style.contact_link}>
         You are being charged a one-time $10.00 fee. This helps keep out bots and maintians the application
