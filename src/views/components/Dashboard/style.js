@@ -23,5 +23,16 @@ export default {
   name: {
     fontSize: 18,
     fontWeight: 'bold'
-  }
+  },
+  table_header: {
+    fontSize: 12,
+    fontWeight: 'bold'
+  },
+  table_data: {
+    fontSize: 12,
+    textAlign: 'right'
+  },
+  row: {
+    width: '50%'
+  },
 }

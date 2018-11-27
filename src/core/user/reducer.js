@@ -1,6 +1,6 @@
 import {
   USER_UPDATED, USER_UPDATED_SUCCESS, USER_UPDATED_ERROR,
-  REGISTERED, REGISTERED_ERROR,
+  REGISTERED, REGISTERED_ERROR, LOGIN_REQUESTED, LOGIN_ERROR,
   SEND_RECOVERY_EMAIL, SEND_RECOVERY_EMAIL_ERROR,
   UPDATE_PASSWORD, UPDATE_PASSWORD_ERROR,
   USER_SET, USER_UNSET, USER_INFO_SET, USER_UNSET_TOUCH_ID,
@@ -33,6 +33,16 @@ const initial = {
 
 export const userReducer = (state = initial, action) => {
   switch (action.type) {
+    case LOGIN_REQUESTED:
+      return {
+        ...state,
+        loading: true
+      }
+    case LOGIN_ERROR:
+      return {
+        ...state,
+        loading: false
+      }
     case USER_SET:
       return {
         ...state,

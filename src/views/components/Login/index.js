@@ -10,6 +10,7 @@ import style                              from './style'
 import { displayError }                   from '*/utils/toastr'
 import colors                             from '*/views/components/atoms/Colors'
 import { KeyboardAwareScrollView }        from 'react-native-keyboard-aware-scroll-view'
+import Spinner                            from '*/views/components/atoms/Spinner'
 
 export default class LoginScreen extends Component {
 
@@ -41,6 +42,9 @@ export default class LoginScreen extends Component {
 
   render() {
     const { handleSubmit, user } = this.props
+
+    if (user.loading)
+      return (<Spinner />)
 
     return (
       <KeyboardAwareScrollView

@@ -2,7 +2,7 @@ import React, { Component }                 from 'react'
 import { Text, View, ScrollView }           from 'react-native'
 import moment                               from 'moment'
 import Spinner                              from '*/views/components/atoms/Spinner'
-import { List, ListItem }                   from 'react-native-elements'
+import { List, ListItem, Card, Button }     from 'react-native-elements'
 import NavigatorService                     from '*/utils/navigator'
 import style                                from './style'
 import InfiniteScroll                       from 'react-native-infinite-scroll'
@@ -101,35 +101,70 @@ export default class DashboardScreen extends Component {
       return (<Spinner />)
 
     return (
-      <List containerStyle={{marginBottom: 20, marginTop: 0}} renderScrollComponent={props => <InfiniteScrollView horizontal={false} onLoadMoreAsync={this.loadMorePage} canLoadMore={this.state.canLoadMoreContent} distanceFromEnd={10} />}>
+      <ScrollView
+        containerStyle={{marginBottom: 20, marginTop: 0}}
+        renderScrollComponent={props => <InfiniteScrollView horizontal={false} onLoadMoreAsync={this.loadMorePage}
+        canLoadMore={this.state.canLoadMoreContent}
+        distanceFromEnd={10} />}>
         {people.data.map((p, i) => (
-          <ListItem
-            key={p.id}
-            title={
-              <Text style={style.name}>{p.name}({p.gender}) - {p.age}</Text>
-            }
-            onPress={() => this.goToProfile(i)}
-            subtitle={
-              <View>
-                <View>
-                  <Text style={style.distance}>{p.distance} miles away</Text>
+          <Card
+            key={i}
+            title={`${p.name.split(" ")[0]}`}>
+            <List
+            containerStyle={{marginBottom: 20}}>
+            <ListItem
+              containerStyle={{marginTop: 0}}
+              hideChevron={true}
+              title={
+                <View style={{flexDirection: 'row'}}>
+                  <View style={style.row}>
+                    <Text style={style.table_header}>Gender</Text>
+                  </View>
+                  <View style={style.row}>
+                    <Text style={style.table_data}>{p.gender}</Text>
+                  </View>
                 </View>
-                <View style={style.container}>
-                  <Text numberOfLines={2} style={style.text}>{p.description}</Text>
+              } />
+            <ListItem
+              hideChevron={true}
+              title={
+                <View style={{flexDirection: 'row'}}>
+                  <View style={style.row}>
+                    <Text style={style.table_header}>Age</Text>
+                  </View>
+                  <View style={style.row}>
+                    <Text style={style.table_data}>{p.age} years old</Text>
+                  </View>
                 </View>
-              </View>
-            }
-            rightIcon={{name: 'visibility'}}
-          />
+              } />
+            <ListItem
+              hideChevron={true}
+              title={
+                <View style={{flexDirection: 'row'}}>
+                  <View>
+                    <Text style={style.table_header}>About Me</Text>
+                    <Text numberOfLines={2}>{p.description}</Text>
+                  </View>
+                </View>
+              } />
+            </List>
+            <Button
+              icon={{name: 'visibility'}}
+              backgroundColor='#F05757'
+              fontSize={16}
+              borderRadius={5}
+              onPress={() => this.goToProfile(i)}
+              buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+              title='READ MORE' />
+          </Card>
         ))}
         {people.data.length < 1 &&
-          <ListItem
-            title={
-              <Text>Currently no one to chat with. Invite more friends to use the app!</Text>
-            }
-          />
+          <Card
+            title='No One Found'>
+            <Text>Currently no one to chat with. Invite more friends to use the app!</Text>
+          </Card>
         }
-      </List>
+      </ScrollView>
     );
   }
 }

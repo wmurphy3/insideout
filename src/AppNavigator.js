@@ -59,6 +59,7 @@ const drawerButton = (navigation) =>
     }
     color='#fff'
     name='menu'
+    containerStyle={{marginLeft: 10}}
     size={35} />
 
 const DrawerStack = DrawerNavigator({
@@ -89,6 +90,7 @@ const goBackButton = (url) =>
   <Icon
     name={'chevron-left'}
     color="#fff"
+    containerStyle={{marginLeft: 10}}
     onPress={ () => NavigatorService.navigate(url) }  />
 
 // Recurring

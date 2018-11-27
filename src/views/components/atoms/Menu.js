@@ -49,7 +49,7 @@ class DrawerContainer extends React.Component {
     const { navigation } = this.props
     return (
       <ScrollView style={styles.container}>
-        <List>
+        <List containerStyle={{marginTop: 0}}>
           <ListItem
             title={"Dashboard"}
             onPress={() => this._pop('Dashboard')}
@@ -61,7 +61,7 @@ class DrawerContainer extends React.Component {
             leftIcon={{name: "favorite"}} />
 
           <ListItem
-            title="Profile"
+            title="My Profile"
             onPress={() => this._pop('Profile')}
             leftIcon={{name: "person"}} />
 
@@ -94,8 +94,7 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: 10
+    backgroundColor: '#fff'
   },
   child: {
     backgroundColor: '#E8E8E8',

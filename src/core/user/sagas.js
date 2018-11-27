@@ -164,8 +164,7 @@ function* loginWatcher () {
 
     let userSignedOut = false
     while(!userSignedOut) {
-      const { expired, signout } = yield race({
-        expired: call(delay, token.expires_in * 1000),
+      const { signout } = yield race({
         signout: take(USER_UNSET)
       })
 
