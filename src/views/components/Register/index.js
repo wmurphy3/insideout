@@ -51,7 +51,7 @@ export default class Register extends Component {
 
     return (
       <View style={style.mainBackground}>
-        <View style={{paddingHorizontal: 20, alignSelf: 'center', marginTop: 50}}>
+        <View style={{paddingHorizontal: 0, alignSelf: 'center', marginTop: 50}}>
           <Image
             style={{maxHeight: 100, alignSelf: 'center'}}
             source={require('*/views/assets/logo.png')}

@@ -35,7 +35,7 @@ const Into = (props) => {
           fontSize={16}
           borderRadius={5}
           onPress={previousPage}
-          containerViewStyle={{marginTop: 20, marginRight: 0, marginLeft: 0, alignItems: 'flex-start'}}
+          containerStyle={{marginTop: 20, marginRight: 0, marginLeft: 0, alignItems: 'flex-start'}}
           buttonStyle={style.button} />
 
         <Button
@@ -43,7 +43,7 @@ const Into = (props) => {
           fontSize={16}
           borderRadius={5}
           onPress={handleSubmit}
-          containerViewStyle={{marginTop: 20, marginRight: 0, alignItems: 'flex-end'}}
+          containerStyle={{marginTop: 20, marginRight: 0, alignItems: 'flex-end'}}
           buttonStyle={style.button} />
       </View>
     </KeyboardAwareScrollView>

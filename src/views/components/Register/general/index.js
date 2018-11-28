@@ -57,7 +57,7 @@ const General = (props) => {
         fontSize={16}
         borderRadius={5}
         onPress={handleSubmit}
-        containerViewStyle={{marginTop: 20, marginRight: 0, alignItems: 'flex-end'}}
+        containerStyle={{marginTop: 20, marginRight: 0, alignItems: 'flex-end'}}
         buttonStyle={style.button} />
     </KeyboardAwareScrollView>
   )

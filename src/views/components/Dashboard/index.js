@@ -2,7 +2,7 @@ import React, { Component }                 from 'react'
 import { Text, View, ScrollView }           from 'react-native'
 import moment                               from 'moment'
 import Spinner                              from '*/views/components/atoms/Spinner'
-import { List, ListItem, Card, Button }     from 'react-native-elements'
+import { ListItem, Card, Button }           from 'react-native-elements'
 import NavigatorService                     from '*/utils/navigator'
 import style                                from './style'
 import InfiniteScroll                       from 'react-native-infinite-scroll'
@@ -110,10 +110,8 @@ export default class DashboardScreen extends Component {
           <Card
             key={i}
             title={`${p.name.split(" ")[0]}`}>
-            <List
-            containerStyle={{marginBottom: 20}}>
             <ListItem
-              containerStyle={{marginTop: 0}}
+              containerStyle={{marginTop: 5, paddingVertical: 0}}
               hideChevron={true}
               title={
                 <View style={{flexDirection: 'row'}}>
@@ -126,7 +124,21 @@ export default class DashboardScreen extends Component {
                 </View>
               } />
             <ListItem
+              containerStyle={{marginTop: 5, paddingVertical: 0}}
               hideChevron={true}
+              title={
+                <View style={{flexDirection: 'row'}}>
+                  <View style={style.row}>
+                    <Text style={style.table_header}>Miles Away</Text>
+                  </View>
+                  <View style={style.row}>
+                    <Text style={style.table_data}>{p.distance}</Text>
+                  </View>
+                </View>
+              } />
+            <ListItem
+              hideChevron={true}
+              containerStyle={{marginTop: 5, paddingVertical: 0}}
               title={
                 <View style={{flexDirection: 'row'}}>
                   <View style={style.row}>
@@ -139,6 +151,7 @@ export default class DashboardScreen extends Component {
               } />
             <ListItem
               hideChevron={true}
+              containerStyle={{marginTop: 5, paddingVertical: 0}}
               title={
                 <View style={{flexDirection: 'row'}}>
                   <View>
@@ -147,14 +160,11 @@ export default class DashboardScreen extends Component {
                   </View>
                 </View>
               } />
-            </List>
             <Button
-              icon={{name: 'visibility'}}
-              backgroundColor='#F05757'
+              icon={{name: 'visibility', color: '#fff'}}
               fontSize={16}
-              borderRadius={5}
               onPress={() => this.goToProfile(i)}
-              buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+              buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0, padding: 5, marginTop: 20, borderRadius: 5, backgroundColor: '#F05757'}}
               title='READ MORE' />
           </Card>
         ))}

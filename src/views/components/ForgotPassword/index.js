@@ -31,6 +31,7 @@ export default class ForgotPassword extends Component {
           <Field
             name="email"
             type="text"
+            icon='email'
             placeholder="Email"
             component={FieldInput} />
 

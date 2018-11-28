@@ -4,7 +4,7 @@
     "icon": "./src/views/assets/mobile_logo.png",
     "name": "InsideOut",
     "slug": "insideout",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "ios": {
       "bundleIdentifier": "com.insideout.dev"
     },

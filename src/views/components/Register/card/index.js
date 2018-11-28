@@ -15,12 +15,12 @@ const Card = (props) => {
   return (
     <KeyboardAwareScrollView style={style.container}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <View style={{width: '75%'}}>
+        <View style={{width: '70%'}}>
           <Field
             name="number"
             component={CreditCardInput} />
         </View>
-        <View style={{width: '15%'}}>
+        <View style={{width: '20%'}}>
           <Field
             name="cvc"
             placeholder="CVC"
@@ -54,7 +54,7 @@ const Card = (props) => {
           fontSize={16}
           borderRadius={5}
           onPress={previousPage}
-          containerViewStyle={{marginTop: 20, marginRight: 0, marginLeft: 0, alignItems: 'flex-start'}}
+          containerStyle={{marginTop: 20, marginRight: 0, marginLeft: 0, alignItems: 'flex-start'}}
           buttonStyle={style.button} />
 
         <Button
@@ -62,7 +62,7 @@ const Card = (props) => {
           fontSize={16}
           borderRadius={5}
           onPress={handleSubmit}
-          containerViewStyle={{marginTop: 20, marginRight: 0, alignItems: 'flex-end'}}
+          containerStyle={{marginTop: 20, marginRight: 0, alignItems: 'flex-end'}}
           buttonStyle={style.button} />
       </View>
     </KeyboardAwareScrollView>

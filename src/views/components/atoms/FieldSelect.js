@@ -1,7 +1,5 @@
 import React, { Component }               from 'react'
-import { View, StyleSheet, Dimensions }   from 'react-native'
-import { FormLabel, FormInput,
-         FormValidationMessage}           from 'react-native-elements'
+import { View, StyleSheet, Dimensions, Text }   from 'react-native'
 import SelectInput                        from 'react-native-select-input-ios'
 import colors                             from '*/views/components/atoms/Colors'
 
@@ -13,7 +11,7 @@ export default class FieldSelect extends Component {
     this.state = {
       value: String(props.input.value) || null,
       // TODO: Figure out color for placeholder
-      color: props.placeholder ? '#C7C7CD' : '#86939e'
+      color: props.placeholder ? '#C7C7CD' : '#e7eaec'
     }
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -30,7 +28,7 @@ export default class FieldSelect extends Component {
   onSubmit(value) {
     this.setState({
       value: value,
-      color: '#86939e'
+      color: '#e7eaec'
     })
     this.props.input.onChange(value)
   }
@@ -42,12 +40,12 @@ export default class FieldSelect extends Component {
 
     const styles = StyleSheet.create({
       selectInput: {
-        minHeight:        30,
+        minHeight:        42,
         backgroundColor:  '#FFFFFF',
         flexDirection:    'row',
-        borderBottomWidth: 1,
-        borderBottomColor: "#bdc6cf",
-        marginTop: 5
+        borderWidth: 1,
+        borderColor: '#e7eaec',
+        borderRadius: 5
       },
       selectInputLarge: {
         width: SCREEN_WIDTH - width
@@ -61,11 +59,11 @@ export default class FieldSelect extends Component {
           options={this.setupOptions()}
           onCancelEditing={() => console.log('onCancel')}
           onSubmitEditing={this.onSubmit}
-          labelStyle={{color: this.state.color, fontSize: 16}}
+          labelStyle={{color: this.state.color, fontSize: 18, lineHeight: 42, paddingLeft: 10}}
           style={[styles.selectInput, styles.selectInputLarge]}
         />
         {touched &&
-          ((error && <FormValidationMessage labelStyle={{marginLeft: 0, marginRight: 0}}>{error}</FormValidationMessage>))}
+          ((error && <Text style={{margin:5, fontSize: 12, color: '#ff190c'}}>{error}</Text>))}
       </View>
     );
   }

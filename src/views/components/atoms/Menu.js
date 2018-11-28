@@ -3,12 +3,12 @@ import { StyleSheet, Text, View,
          ScrollView, ActionSheetIOS }     from 'react-native'
 import { connect }                        from 'react-redux'
 import { NavigationActions }              from 'react-navigation'
-import { List, ListItem }                 from 'react-native-elements'
+import { ListItem }                       from 'react-native-elements'
 import { MaterialIcons, Ionicons }        from '@expo/vector-icons'
 import NavigatorService                   from '*/utils/navigator'
 import { unsetUser }                      from '*/core/user'
 
-class DrawerContainer extends React.Component {
+class Menu extends React.Component {
 
   constructor(props, context) {
     super(props, context);
@@ -49,28 +49,33 @@ class DrawerContainer extends React.Component {
     const { navigation } = this.props
     return (
       <ScrollView style={styles.container}>
-        <List containerStyle={{marginTop: 0}}>
-          <ListItem
-            title={"Dashboard"}
-            onPress={() => this._pop('Dashboard')}
-            leftIcon={{name: "home"}} />
+        <ListItem
+          title={"Dashboard"}
+          onPress={() => this._pop('Dashboard')}
+          containerStyle={styles.listView}
+          titleStyle={{color: '#838383'}}
+          leftIcon={{name: "home", color: '#838383'}} />
 
-          <ListItem
-            title={"Message Center"}
-            onPress={() => this._pop('Matches')}
-            leftIcon={{name: "favorite"}} />
+        <ListItem
+          title={"Message Center"}
+          onPress={() => this._pop('Matches')}
+          containerStyle={styles.listView}
+          titleStyle={{color: '#838383'}}
+          leftIcon={{name: "favorite", color: '#838383'}} />
 
-          <ListItem
-            title="My Profile"
-            onPress={() => this._pop('Profile')}
-            leftIcon={{name: "person"}} />
+        <ListItem
+          title="My Profile"
+          onPress={() => this._pop('Profile')}
+          containerStyle={styles.listView}
+          titleStyle={{color: '#838383'}}
+          leftIcon={{name: "person", color: '#838383'}} />
 
-          <ListItem
-            title="Logout"
-            onPress={() => this.logout()}
-            leftIcon={{name: "exit-to-app"}} />
-
-        </List>
+        <ListItem
+          title="Logout"
+          onPress={() => this.logout()}
+          containerStyle={styles.listView}
+          titleStyle={{color: '#838383'}}
+          leftIcon={{name: "exit-to-app", color: '#838383'}} />
       </ScrollView>
     )
   }
@@ -89,7 +94,7 @@ const mapDispatchToProps = (dispatch, props) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DrawerContainer)
+)(Menu)
 
 const styles = StyleSheet.create({
   container: {
@@ -99,5 +104,10 @@ const styles = StyleSheet.create({
   child: {
     backgroundColor: '#E8E8E8',
     paddingLeft: 20
+  },
+  listView: {
+    borderBottomWidth: 1,
+    borderColor: '#838383',
+    paddingBottom: 15
   }
 })

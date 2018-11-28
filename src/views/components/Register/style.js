@@ -16,10 +16,11 @@ export default {
   },
   button: {
     backgroundColor: colors.main,
-    marginTop: 10
+    marginTop: 10,
+    padding: 5
   },
   container: {
-    paddingHorizontal: 40,
+    paddingHorizontal: 20,
     marginTop: 20
   },
   contact_link: {

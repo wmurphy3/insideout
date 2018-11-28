@@ -1,8 +1,6 @@
 import React, {Component}         from 'react'
 import { Field }                  from 'redux-form'
 import { View, Text, TextInput }  from 'react-native'
-import { FormLabel, FormInput,
-         FormValidationMessage}   from 'react-native-elements'
 import { TextInputMask }          from 'react-native-masked-text'
 import colors                     from '*/views/components/atoms/Colors'
 
@@ -34,14 +32,14 @@ export default class CreditCardInput extends Component {
         <TextInputMask
         	type={'credit-card'}
           returnKeyType='done'
-          style={{ minHeight: 36, borderBottomWidth: 1, borderBottomColor: "#bdc6cf", color: (disabled ? '#d4d8db' : '#86939e')}}
-          inputStyle={{paddingLeft: 10, color: (disabled ? '#d4d8db' : '#86939e')}}
+          style={{ minHeight: 42, borderWidth: 1, borderColor: '#e7eaec', color: (disabled ? '#d4d8db' : '#838383'), borderRadius: 5}}
+          inputStyle={{paddingLeft: 10, color: (disabled ? '#d4d8db' : '#838383'), fontSize: 18, lineHeight: 42,}}
           onChangeText={this._onChange}
           value={this.state.amount}
         	placeholder={'0000 0000 0000 0000'}
         />
         {touched &&
-          ((error && <FormValidationMessage labelStyle={{marginLeft: 0}}>{error}</FormValidationMessage>))}
+          ((error && <Text style={{margin:5, fontSize: 12, color: '#ff190c'}}>{error}</Text>))}
       </View>
     )
   }

@@ -1,7 +1,6 @@
 import React, {Component}           from 'react'
 import { View }                     from 'react-native'
-import { FormLabel, CheckBox,
-         FormValidationMessage}     from 'react-native-elements'
+import { CheckBox }                 from 'react-native-elements'
 import colors                       from '*/views/components/atoms/Colors'
 
 
@@ -44,7 +43,7 @@ export default class CustomCheckBox extends Component {
           onPress={() => this._onChange()}
         />
         {touched &&
-          ((error && <FormValidationMessage>{error}</FormValidationMessage>))}
+          ((error && <Text style={{margin:5, fontSize: 12, color: '#ff190c'}}>{error}</Text>))}
       </View>
     )
   }

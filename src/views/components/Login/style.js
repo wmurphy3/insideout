@@ -7,9 +7,9 @@ export default {
     flex: 1,
   },
   container: {
-    marginLeft: 50,
-    marginRight: 50,
-    width: (Dimensions.get('window').width - 100)
+    marginLeft: 20,
+    marginRight: 20,
+    width: (Dimensions.get('window').width - 40)
   },
   forgot_password_link: {
     color: colors.main,
@@ -23,7 +23,8 @@ export default {
   },
   button: {
     backgroundColor: colors.main,
-    marginTop: 10
+    marginTop: 10,
+    padding: 5
   },
   register_link: {
     marginTop: 20,

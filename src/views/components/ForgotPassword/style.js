@@ -12,7 +12,8 @@ export default {
   },
   button: {
     backgroundColor: colors.main,
-    marginTop: 10
+    marginTop: 10,
+    padding: 5
   },
   container: {
     borderWidth: 0,

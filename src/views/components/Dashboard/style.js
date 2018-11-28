@@ -18,18 +18,18 @@ export default {
   },
   distance: {
     fontStyle: 'italic',
-    fontSize: 12
+    fontSize: 14
   },
   name: {
     fontSize: 18,
     fontWeight: 'bold'
   },
   table_header: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: 'bold'
   },
   table_data: {
-    fontSize: 12,
+    fontSize: 14,
     textAlign: 'right'
   },
   row: {
