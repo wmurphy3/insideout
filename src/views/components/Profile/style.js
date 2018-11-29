@@ -2,67 +2,63 @@ import colors        from '*/views/components/atoms/Colors'
 
 export default {
   mainBackground: {
-    backgroundColor: colors.background,
     flex: 1
   },
-  button: {
-    backgroundColor: colors.main,
-    marginTop: 10,
-    width: '100%'
+  container: {
+    flexDirection: 'row',
+    padding: 10,
+    paddingLeft: 0
   },
-  centered: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  due_title: {
-    color: colors.label,
-    fontSize: 13,
-  },
-  border_bottom: {
-    borderBottomWidth: 1,
-    borderColor: colors.border,
-    padding: 20,
-    paddingTop: 0
-  },
-  table_header: {
-    fontWeight: 'bold',
-    fontSize: 18,
-    textAlign: 'left'
-  },
-  table_data: {
-    fontSize: 18,
-    textAlign: 'left'
+  text: {
+    flex: 1
   },
   row: {
-    width: '50%'
+    width: '100%'
   },
-  reverse_button: {
-    backgroundColor: '#fff',
-    marginTop: 10,
-    width: '100%',
-    borderWidth: 1,
-    borderColor: colors.main
-  },
-  link: {
-    color: colors.main
-  },
-  center_text: {
-    textAlign: 'center'
+  distance: {
+    fontStyle: 'italic',
+    fontSize: 14
   },
   name: {
     fontSize: 18,
     fontWeight: 'bold'
   },
-  distance: {
-    fontStyle: 'italic',
-    fontSize: 12,
-    paddingHorizontal: 10
+  table_header: {
+    fontSize: 14,
+    fontWeight: 'bold'
   },
-  column: {
+  table_data: {
+    fontSize: 14,
+    textAlign: 'right'
+  },
+  row: {
     width: '50%'
   },
-  padding: {
-    paddingHorizontal: 10,
-    paddingTop: 10
+  listView: {
+    marginTop: 5,
+    paddingVertical: 0,
+    borderBottomWidth: 1,
+    borderColor: '#e7eaec',
+    paddingBottom: 5
+  },
+  button: {
+    backgroundColor: colors.main,
+    marginTop: 10,
+    padding: 5,
+    borderRadius: 5
+  },
+  interestButton: {
+    borderRadius: 20,
+    padding: 2,
+    margin: 5,
+    borderColor: colors.main,
+    borderWidth: 1,
+    backgroundColor: '#fff'
+  },
+  contact_link: {
+    color: colors.main,
+    fontSize: 12,
+    textAlign: 'center',
+    marginTop: 10
   }
 }

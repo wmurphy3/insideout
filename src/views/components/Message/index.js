@@ -31,9 +31,9 @@ export default class MessageScreen extends Component {
       ),
       headerRight: (
         <Icon
-          type="entypo"
-          name={'magnifying-glass'}
-          containerStyle={{marginRight: 10}}
+          type="ionicon"
+          name={'md-more'}
+          containerStyle={{marginRight: 20}}
           color="#fff"
           onPress={ () => params.messageOptions() }  />
       )
@@ -51,21 +51,20 @@ export default class MessageScreen extends Component {
   }
 
   componentWillMount() {
-    let route = NavigatorService.getCurrentRoute()
-    this.setState({match_id: route.params.id, user_id: route.params.user_id, row_id: route.params.row_id})
-    this.props.getMessages(route.params.id)
+    if(this.props.current_match) {
+      this.props.getMessages(this.props.current_match.id)
+      this.props.navigation.setParams({
+        goToProfile: this.goToUserProfile,
+        messageOptions: this.messageOptions,
+        name: this.props.current_match.data.name.slice(0, 1)
+      })
 
-    this.props.navigation.setParams({
-      goToProfile: this.goToUserProfile,
-      messageOptions: this.messageOptions,
-      name: this.props.matches.data[route.params.row_id]["name"].slice(0, 1)
-    })
+      var channel = pusher.subscribe(String(this.props.current_match.id));
 
-    var channel = pusher.subscribe(route.params.id);
-
-    channel.bind('message', function(data) {
-      console.log(data)
-    });
+      channel.bind('new-message', function(data) {
+        console.log(data)
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -90,18 +89,19 @@ export default class MessageScreen extends Component {
   }
 
   goToUserProfile = () => {
-    NavigatorService.navigate('MatchedUserStack', {id: this.state.match_id, user_id: this.state.user_id, row_id: this.state.row_id})
+    // TODO: GET User info
+    // NavigatorService.navigate('MatchedUserStack', {id: this.state.match_id, user_id: this.state.user_id})
   }
 
   setNextStep = () => {
-    this.props.setNextStep(this.state.match_id)
+    this.props.setNextStep(this.props.current_match.id)
   }
 
-  onSend(messages = []) {
+  onSend = (messages = []) => {
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }))
-    this.props.setMessage(messages[0], this.state.match_id, this.state.user_id)
+    this.props.setMessage(messages[0], this.props.current_match.id, this.props.user.id)
   }
 
   renderBubble(props) {
@@ -118,9 +118,9 @@ export default class MessageScreen extends Component {
   }
 
   render() {
-    const { messages, user } = this.props
+    const { messages, user, current_match } = this.props
 
-    if (messages.loading)
+    if (messages.loading || !current_match)
       return (<Spinner />)
 
     return (

@@ -7,7 +7,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     user: state.user,
     messages: state.message,
-    matches: state.match
+    matches: state.match,
+    current_match: state.match.current_match
   }
 }
 

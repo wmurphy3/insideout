@@ -1,6 +1,6 @@
-import { connect } 		 from 'react-redux'
-import Component 			 from '*/views/components/Matches'
-import { getMatches }   from '*/core/match'
+import { connect } 		                    from 'react-redux'
+import Component 			                    from '*/views/components/Matches'
+import { getMatches, setCurrentMatch }    from '*/core/match'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -11,7 +11,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getMatches: () => dispatch(getMatches())
+    getMatches: () => dispatch(getMatches()),
+    setCurrentMatch: (id) => dispatch(setCurrentMatch(id))
   }
 }
 

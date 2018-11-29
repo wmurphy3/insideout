@@ -35,7 +35,6 @@ export const messageReducer = (state = initial, action) => {
       return { ...state, loading: true }
 
     case MESSAGE_CREATED_SUCCESS:
-      console.log(action)
       let actiondata = {...action.data.data, ...action.data.data.attributes},
         found = false,
         newData

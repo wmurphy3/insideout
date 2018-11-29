@@ -1,7 +1,7 @@
 import React, { Component }               from 'react'
 import { Text, View, Switch, AlertIOS,
-         ScrollView }                     from 'react-native';
-import { Button, List, ListItem, Icon, Avatar }   from 'react-native-elements'
+         ScrollView, FlatList }           from 'react-native';
+import { Button, Card, ListItem , Avatar, Icon }   from 'react-native-elements'
 import style                              from './style'
 import Spinner                            from '*/views/components/atoms/Spinner'
 import NavigatorService                   from '*/utils/navigator'
@@ -44,51 +44,137 @@ export default class UserInformation extends Component {
 
     return(
       <ScrollView style={style.mainBackground}>
-        {user.profile_picture &&
-          <Avatar
-            large
-            rounded
-            source={{uri: user.profile_picture}}
-            onPress={() => console.log("Works!")}
-            activeOpacity={0.7}
-          />
-        }
-        <View style={style.container}>
-          <Text style={style.name}>{user.name}({user.gender}) - {user.age}</Text>
-        </View>
-        <Text style={style.padding}>{user.description}</Text>
-        <View>
-          <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
-            <Text>Job Title:{"\n"}{user.job_title}</Text>
+        <Card
+          title={`${user.name.split(" ")[0]}`}>
+          {user.profile_picture &&
+            <Avatar
+              xlarge
+              rounded
+              source={{uri: user.profile_picture}}
+              onPress={() => console.log("Works!")}
+              activeOpacity={0.7}
+            />
+          }
+          <View style={{flex:1, alignItems: 'center'}}>
+            <Avatar
+              xlarge
+              rounded
+              icon={{name: 'user', type: 'entypo', size: 75}}
+              containerStyle={{width: 100, height: 100}}
+              activeOpacity={0.7}
+            />
           </View>
-          <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
-            <Text>School:{"\n"}{user.school}</Text>
-          </View>
-          <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
-            <Text>Hobbies:{"\n"}{user.hobbies}</Text>
-          </View>
-          <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
-            <View style={style.column}>
-              <Text>Favorite Movie:{"\n"}{user.favorite_movie}</Text>
-            </View>
-            <View style={style.column}>
-              <Text>Favorite Food:{"\n"}{user.favorite_food}</Text>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
-            <View style={style.column}>
-              <Text>Favorite Song:{"\n"}{user.favorite_song}</Text>
-            </View>
-            <View style={style.column}>
-              <Text>
-                Interested In:{"\n"}
-                {user.allow_male ? ' Male' : '' }
-                {user.allow_female ? ' Female' : '' }
-                {user.allow_other ? ' Other' : '' }
-              </Text>
-            </View>
-          </View>
-        </View>
+          <ListItem
+            containerStyle={style.listView}
+            hideChevron={true}
+            title={
+              <View style={{flexDirection: 'row'}}>
+                <View style={style.row}>
+                  <Text style={style.table_header}>Gender</Text>
+                </View>
+                <View style={style.row}>
+                  <Text style={style.table_data}>{user.gender}</Text>
+                </View>
+              </View>
+            } />
+
+            <ListItem
+              containerStyle={style.listView}
+              hideChevron={true}
+              title={
+                <View style={{flexDirection: 'row'}}>
+                  <View style={style.row}>
+                    <Text style={style.table_header}>Age</Text>
+                  </View>
+                  <View style={style.row}>
+                    <Text style={style.table_data}>{user.age}</Text>
+                  </View>
+                </View>
+              } />
+            {user.job_title &&
+              <ListItem
+                containerStyle={style.listView}
+                hideChevron={true}
+                title={
+                  <View style={{flexDirection: 'row'}}>
+                    <View style={style.row}>
+                      <Text style={style.table_header}>Job Title</Text>
+                    </View>
+                    <View style={style.row}>
+                      <Text style={style.table_data}>{user.job_title}</Text>
+                    </View>
+                  </View>
+                } />
+            }
+            {user.school &&
+              <ListItem
+                containerStyle={style.listView}
+                hideChevron={true}
+                title={
+                  <View style={{flexDirection: 'row'}}>
+                    <View style={style.row}>
+                      <Text style={style.table_header}>School</Text>
+                    </View>
+                    <View style={style.row}>
+                      <Text style={style.table_data}>{user.school}</Text>
+                    </View>
+                  </View>
+                } />
+            }
+            <ListItem
+              containerStyle={style.listView}
+              hideChevron={true}
+              title={
+                <View style={{flexDirection: 'row'}}>
+                  <View style={style.row}>
+                    <Text style={style.table_header}>Interested In</Text>
+                  </View>
+                  <View style={style.row}>
+                    <Text style={style.table_data}>
+                    {user.allow_male ? ' Males' : '' }
+                    {user.allow_female ? ' Females' : '' }
+                    {user.allow_other ? ' Others' : '' }
+                    </Text>
+                  </View>
+                </View>
+              } />
+            <ListItem
+              containerStyle={style.listView}
+              hideChevron={true}
+              title={
+                <View style={{flexDirection: 'row'}}>
+                  <View>
+                    <Text style={style.table_header}>About Me</Text>
+                    <Text numberOfLines={20}>{user.description}</Text>
+                  </View>
+                </View>
+              } />
+            <ListItem
+              containerStyle={style.listView}
+              hideChevron={true}
+              title={
+                <View style={{flexDirection: 'row'}}>
+                  <View>
+                    <Text style={style.table_header}>Interests</Text>
+                    <FlatList
+                      horizontal
+                      data={user.interests}
+                      renderItem={({ item: rowData }) => {
+                        return (
+                          <Button
+                            fontSize={14}
+                            titleStyle={{color: colors.main}}
+                            buttonStyle={style.interestButton}
+                            title={rowData} />
+                        );
+                      }}
+                      keyExtractor={(item, index) => index.toString()}
+                    />
+                  </View>
+                </View>
+              } />
+
+        </Card>
       </ScrollView>
     )
   }

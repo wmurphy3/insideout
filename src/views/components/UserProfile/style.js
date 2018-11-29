@@ -47,6 +47,14 @@ export default {
     padding: 5,
     borderRadius: 5
   },
+  interestButton: {
+    borderRadius: 20,
+    padding: 2,
+    margin: 5,
+    borderColor: colors.main,
+    borderWidth: 1,
+    backgroundColor: '#fff'
+  },
   contact_link: {
     color: colors.main,
     fontSize: 12,

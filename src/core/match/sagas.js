@@ -1,11 +1,11 @@
 import { all, takeLatest, fork, call, put, select } from 'redux-saga/effects'
 import {
   matchCreateSuccess, matchCreateError, getMatchesSuccess, getMatchesError,
-  setNextStepSuccess, setNextStepError, blockMatchSuccess
+  setNextStepSuccess, setNextStepError, blockMatchSuccess, setCurrentMatchSuccess
 } from './actions'
 import {
   MATCH_CREATED, MATCHES_REQUESTED, MATCHES_REQUESTED_SUCCESS,
-  MATCHES_REQUESTED_ERROR, MATCH_NEXT_STEP, MATCH_BLOCK
+  MATCHES_REQUESTED_ERROR, MATCH_NEXT_STEP, MATCH_BLOCK, SET_CURRENT_MATCH
 } from './constants'
 import { getAccessToken }                   from '*/core/user'
 import api                                  from './api'
@@ -30,7 +30,8 @@ function* matchCreatedFlow(action) {
     const match = yield call(api.createMatch, token, user_id)
 
     yield put(matchCreateSuccess(match))
-
+    NavigatorService.navigate('MessageStack')
+    displaySuccess('Connection made. Make the first move and send them a message!')
   } catch (error) {
     yield put(matchCreateError(error))
   }
@@ -62,6 +63,16 @@ function* blockMatchFlow(action) {
   }
 }
 
+function* setCurrentMatchFlow(action) {
+  try {
+    const { id } = action
+    yield put(setCurrentMatchSuccess(id))
+    NavigatorService.navigate('MessageStack')
+  } catch (error) {
+    displayError('Could not message user at this time')
+  }
+}
+
 //=====================================
 //  WATCHERS
 //-------------------------------------
@@ -71,7 +82,8 @@ function* matchWatcher() {
     takeLatest(MATCH_CREATED, matchCreatedFlow),
     takeLatest(MATCHES_REQUESTED, matchesRequestedFlow),
     takeLatest(MATCH_NEXT_STEP, matchNextStepFlow),
-    takeLatest(MATCH_BLOCK, blockMatchFlow)
+    takeLatest(MATCH_BLOCK, blockMatchFlow),
+    takeLatest(SET_CURRENT_MATCH, setCurrentMatchFlow)
   ])
 }
 

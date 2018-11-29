@@ -64,14 +64,14 @@ export default class LoginScreen extends Component {
             placeholder="Email"
             component={FieldInput} />
 
-          <Text onPress={() => this.gotToForgotPassword()} style={style.forgot_password_link}>Forgot Password?</Text>
-
           <Field
             name="password"
             icon='lock'
             secureTextEntry={true}
             placeholder="Password"
             component={FieldInput} />
+
+          <Text onPress={() => this.gotToForgotPassword()} style={style.forgot_password_link}>Forgot Password?</Text>
 
           <Button
             title="LOGIN"

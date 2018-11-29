@@ -2,7 +2,7 @@ import React, { Component }  from 'react'
 import { Text, View, ScrollView } from 'react-native'
 import moment                from 'moment'
 import Spinner               from '*/views/components/atoms/Spinner'
-import { List, ListItem } from 'react-native-elements'
+import { ListItem }          from 'react-native-elements'
 import NavigatorService      from '*/utils/navigator'
 import style                 from './style'
 import colors                from '*/views/components/atoms/Colors'
@@ -16,14 +16,17 @@ export default class MatchesScreen extends Component {
 
   constructor(props, context) {
     super(props, context);
+
+    this.goToMessage = this.goToMessage.bind(this)
   }
 
   componentWillMount() {
     this.props.getMatches()
   }
 
-  goToMessage = (id, row_id, user_id) => {
-    NavigatorService.navigate("MessageStack", {id: id, user_id: user_id, row_id: row_id})
+  goToMessage(i) {
+    console.log(i)
+    this.props.setCurrentMatch(i)
   }
 
   render() {
@@ -31,20 +34,22 @@ export default class MatchesScreen extends Component {
 
     if (matches.loading)
       return (<Spinner />)
+
+    console.log(matches.data)
     return (
-      <ScrollView style={style.container}>
-        <List>
-          {
-            matches.data.map((match, i) => (
-              <ListItem
-                key={i}
-                title={match.name}
-                subtitle={`${match.age} yeard old`}
-                onPress={() => this.goToMessage(match.id, i, match.user_id)}
-              />
-            ))
-          }
-        </List>
+      <ScrollView>
+      {
+        matches.data.map((match, i) => (
+          <ListItem
+            key={i}
+            title={match.name}
+            subtitle={`${match.age} yeard old`}
+            onPress={() => this.goToMessage(i)}
+            chevronColor='#e7eaec'
+            chevron
+          />
+        ))
+      }
       </ScrollView>
     );
   }

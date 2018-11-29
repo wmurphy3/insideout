@@ -9,3 +9,6 @@ export const MATCH_NEXT_STEP_SUCCESS = '@match/NEXT_STEP_SUCCESS'
 export const MATCH_NEXT_STEP_ERROR   = '@match/NEXT_STEP_ERROR'
 export const MATCH_BLOCK             = '@match/BLOCK'
 export const MATCH_BLOCK_SUCCESS     = '@match/BLOOCK_SUCCESS'
+
+export const SET_CURRENT_MATCH       = '@match/SET_CURRENT_MATCH'
+export const SET_CURRENT_MATCH_SUCCESS = '@match/SET_CURRENT_MATCH_SUCCESS'

@@ -30,7 +30,7 @@ export default {
         Authorization: `Bearer ${token || undefined}`
       }
     })
-    .then(resp => getResponseDelete(resp))
+    .then(resp => getResponseData(resp))
   },
   setNextStep: (token, id) => {
     return fetch(`${ENDPOINT}/next_step?id=${id}`, {
