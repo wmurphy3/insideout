@@ -89,8 +89,7 @@ export default class MessageScreen extends Component {
   }
 
   goToUserProfile = () => {
-    // TODO: GET User info
-    // NavigatorService.navigate('MatchedUserStack', {id: this.state.match_id, user_id: this.state.user_id})
+    NavigatorService.navigate('MatchedUserStack')
   }
 
   setNextStep = () => {

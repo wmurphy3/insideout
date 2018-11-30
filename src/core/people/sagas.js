@@ -26,7 +26,6 @@ function* personRequestedFlow(action) {
     const { id } = action
     const token = yield select(getAccessToken)
     const data = yield call(api.getPerson, token, id)
-    console.log(data)
     yield put(getPersonSuccess(data))
 
   } catch (error) {
@@ -40,9 +39,10 @@ function* personReportedFlow(action) {
     const { id, reason } = action
     const token = yield select(getAccessToken)
     const data = yield call(api.reportUser, token, id, reason)
-    console.log(data)
-    yield put(reportUserSuccess(data))
 
+    yield put(reportUserSuccess(id))
+    NavigatorService.navigate('drawerStack')
+    displaySuccess('User reported. Should be resolved within 24 hours.')
   } catch (error) {
     console.log(error)
     yield put(reportUserError('Could not report user at this time.'))

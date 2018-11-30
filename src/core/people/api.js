@@ -1,4 +1,4 @@
-import { getResponseData, buildBody } from '*/core/api/helpers'
+import { getResponseData, buildBody, getResponseDelete } from '*/core/api/helpers'
 import { REACT_APP_API_URL }          from 'react-native-dotenv'
 
 const ENDPOINT = `${REACT_APP_API_URL}/people`;
@@ -26,14 +26,15 @@ export default {
     .then(resp => getResponseData(resp))
   },
   reportUser: (token, id, reason) => {
-    return fetch(`${ENDPOINT}/report?id=${id}&reason=${reason}`, {
+    console.log(id)
+    return fetch(`${REPORT}/report?id=${id}&reason=${reason}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token || undefined}`,
       }
     })
-    .then(resp => getResponseDelete(resp))
+    .then(resp => getResponseData(resp))
   }
 
 }

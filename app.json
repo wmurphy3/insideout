@@ -4,9 +4,15 @@
     "icon": "./src/views/assets/mobile_logo.png",
     "name": "InsideOut",
     "slug": "insideout",
-    "version": "0.0.9",
+    "version": "0.1.0",
     "ios": {
-      "bundleIdentifier": "com.insideout.dev"
+      "bundleIdentifier": "com.insideout.dev",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera for profile pictures",
+        "NSFaceIDUsageDescription": "This app will optionally use Face ID or Touch ID to save login",
+        "NSPhotoLibraryUsageDescription":
+          "The app needs permission to your camera roll in order to add photos you've already taken for upload"
+      },
     },
     "android": {
       "package": "com.insideout.dev"

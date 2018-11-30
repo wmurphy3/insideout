@@ -1,22 +1,18 @@
 import React, { Component }               from 'react'
 import { Text, View, Switch, AlertIOS,
-         ScrollView, FlatList }           from 'react-native';
-import { Button, Card, ListItem , Avatar, Icon }   from 'react-native-elements'
+         ScrollView, FlatList, ActionSheetIOS }           from 'react-native';
+import { Button, Card, ListItem , Avatar, Icon}   from 'react-native-elements'
 import style                              from './style'
 import Spinner                            from '*/views/components/atoms/Spinner'
 import NavigatorService                   from '*/utils/navigator'
+import colors                             from '*/views/components/atoms/Colors'
+import { Permissions }                    from 'expo'
 
 export default class UserInformation extends Component {
   static navigationOptions = ({navigation}) => {
     const {params = {}} = navigation.state;
     return {
-      title: 'My Profile',
-      headerRight:
-        <Icon
-          name={'edit'}
-          containerStyle={{marginRight: 10}}
-          color="#fff"
-          onPress={ () => params.goToEdit() }  />
+      title: 'My Profile'
     };
   };
 
@@ -29,10 +25,47 @@ export default class UserInformation extends Component {
     }
   }
 
-  componentWillMount() {
-    this.props.navigation.setParams({
-      goToEdit: this.goToEdit
-    })
+  _editProfile = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL, Permissions.CAMERA)
+
+    if (status === 'granted') {
+      ActionSheetIOS.showActionSheetWithOptions({
+        options: ['Cancel', 'Photo Album', 'Take Photo'],
+        destructiveButtonIndex: 1,
+        cancelButtonIndex: 0,
+      },
+      (buttonIndex) => {
+        if (buttonIndex === 1) {
+          this._onChoosePic();
+        } else if (buttonIndex == 2) {
+          this._takePhoto();
+        }
+      });
+    }
+  }
+
+  _onChoosePic = async () => {
+    const {
+      cancelled,
+      uri,
+    } = await Expo.ImagePicker.launchImageLibraryAsync();
+    if (!cancelled) {
+      this.saveImage(uri)
+    }
+  }
+
+  _takePhoto = async () => {
+    let pickerResult = await Expo.ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+
+    this.saveImage(pickerResult.uri)
+  };
+
+  saveImage(uri) {
+    this.setState({ imageUri: uri })
+    this.props.saveImage(uri)
   }
 
   goToEdit = () => {
@@ -42,27 +75,41 @@ export default class UserInformation extends Component {
   render() {
     const { user } = this.props
 
+    if(user.loading) {
+      return (<Spinner />)
+    }
+
     return(
       <ScrollView style={style.mainBackground}>
         <Card
           title={`${user.name.split(" ")[0]}`}>
-          {user.profile_picture &&
-            <Avatar
-              xlarge
-              rounded
-              source={{uri: user.profile_picture}}
-              onPress={() => console.log("Works!")}
-              activeOpacity={0.7}
-            />
-          }
           <View style={{flex:1, alignItems: 'center'}}>
-            <Avatar
-              xlarge
-              rounded
-              icon={{name: 'user', type: 'entypo', size: 75}}
-              containerStyle={{width: 100, height: 100}}
-              activeOpacity={0.7}
-            />
+            {user.profile_picture ?
+              <Avatar
+                xlarge
+                rounded
+                source={{uri: user.profile_picture}}
+                containerStyle={{width: 100, height: 100}}
+                onPress={() => this._editProfile()}
+                activeOpacity={0.7}
+              />
+              :
+              <Avatar
+                xlarge
+                rounded
+                icon={{name: 'user', type: 'entypo', size: 75}}
+                containerStyle={{width: 100, height: 100}}
+                onPress={() => this._editProfile()}
+                activeOpacity={0.7}
+              />
+            }
+            <View style={{flex:1}}>
+              <Icon
+                name={'camera'}
+                type='entypo'
+                containerStyle={{position: 'absolute', bottom: 0, right: -45}}
+                color="#fff" />
+            </View>
           </View>
           <ListItem
             containerStyle={style.listView}
@@ -173,6 +220,13 @@ export default class UserInformation extends Component {
                   </View>
                 </View>
               } />
+            <Button
+              title="EDIT"
+              onPress={() => this.goToEdit()}
+              fontSize={16}
+              borderRadius={5}
+              containerViewStyle={{marginLeft: 0, marginRight: 0}}
+              buttonStyle={style.button} />
 
         </Card>
       </ScrollView>

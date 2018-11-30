@@ -24,6 +24,7 @@ const initial = {
   school: null,
   social_media_link: null,
   gender: null,
+  interests: null,
   allow_other: null,
   snap_chat_name: null,
   allow_male: null,
@@ -54,16 +55,12 @@ export const userReducer = (state = initial, action) => {
         id: action.token.id,
         description: action.token.description,
         age: String(action.token.age),
-        favorite_movie: action.token.favorite_movie,
-        favorite_food: action.token.favorite_food,
-        favorite_song: action.token.favorite_song,
         job_title: action.token.job_title,
         hobbies: action.token.hobbies,
         school: action.token.school,
-        social_media_link: action.token.social_media_link,
         gender: action.token.gender,
         allow_other: action.token.allow_other,
-        snap_chat_name: action.token.snap_chat_name,
+        interests: action.token.interests,
         allow_male: action.token.allow_male,
         allow_female: action.token.allow_female,
         profile_picture: action.token.profile_picture
@@ -94,17 +91,14 @@ export const userReducer = (state = initial, action) => {
         name: user_data.name,
         description: user_data.description,
         age: String(user_data.age),
-        favorite_movie: user_data.favorite_movie,
-        favorite_food: user_data.favorite_food,
-        favorite_song: user_data.favorite_song,
         job_title: user_data.job_title,
-        hobbies: user_data.hobbies,
         school: user_data.school,
         social_media_link: user_data.social_media_link,
         gender: user_data.gender,
         allow_other: user_data.allow_other,
         snap_chat_name: user_data.snap_chat_name,
         allow_male: user_data.allow_male,
+        interests: action.token.interests,
         allow_female: user_data.allow_female
       }
 
@@ -137,8 +131,6 @@ export const userReducer = (state = initial, action) => {
 
     case SAVE_IMAGE_ERROR:
       return { ...state, error : action.error, loading: false }
-
-
 
     default:
       return state

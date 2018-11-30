@@ -1,12 +1,11 @@
 import React, { Component }       from 'react'
-import { Text, View, ScrollView } from 'react-native'
+import { Text, View, ScrollView, FlatList } from 'react-native'
 import moment                     from 'moment'
 import Spinner                    from '*/views/components/atoms/Spinner'
 import NavigatorService           from '*/utils/navigator'
 import style                      from './style'
 import colors                     from '*/views/components/atoms/Colors'
-import { Col, Row, Grid }         from "react-native-easy-grid"
-import { Button, Icon, Avatar }   from 'react-native-elements'
+import { Button, Icon, Avatar, Card, ListItem }   from 'react-native-elements'
 
 export default class MatchedUserScreen extends Component {
   static navigationOptions = ({navigation}) => {
@@ -17,7 +16,7 @@ export default class MatchedUserScreen extends Component {
         <Icon
           name={'chevron-left'}
           color="#fff"
-          onPress={ () => NavigatorService.navigate('MessageStack', {id: params.id, user_id: params.user_id, row_id: params.row_id}) }  />
+          onPress={ () => NavigatorService.navigate('MessageStack') }  />
       )
     };
   };
@@ -27,83 +26,157 @@ export default class MatchedUserScreen extends Component {
   }
 
   componentWillMount() {
-    let route = NavigatorService.getCurrentRoute()
+    const { current_match } = this.props
 
-    this.props.navigation.setParams({
-      id: route.params.id,
-      user_id: route.params.user_id,
-      row_id: route.params.row_id
-    })
+    this.props.getPerson(current_match.data.user_id)
+  }
 
-    this.props.getPerson(route.params.user_id)
+  reportUser(id) {
+    this.props.reportUser(id, "Reported User")
   }
 
   render() {
-    const { people } = this.props
+    const { people, current_match } = this.props
 
-    if (people.loading || !people.person)
+    if (people.loading || Object.keys(people.person).length === 0 )
       return (<Spinner />)
 
     const person = people.person
 
     return (
       <ScrollView style={style.mainBackground}>
-        {(person.profile_picture && person.matched) &&
-          <Avatar
-            large
-            rounded
-            source={{uri: person.profile_picture}}
-            onPress={() => console.log("Works!")}
-            activeOpacity={0.7}
-          />
-        }
-        <View style={style.container}>
-          <Text style={style.name}>{person.name}({person.gender}) - {person.age}</Text>
-        </View>
-        <Text style={style.distance}>{person.distance} miles away</Text>
-        <Text style={style.padding}>{person.description}</Text>
-        <View>
-          <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
-            <Text>Job Title:{"\n"}{person.job_title}</Text>
-          </View>
-          <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
-            <Text>School:{"\n"}{person.school}</Text>
-          </View>
-          <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
-            <Text>Hobbies:{"\n"}{person.hobbies}</Text>
-          </View>
-          <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
-            <View style={style.column}>
-              <Text>Favorite Movie:{"\n"}{person.favorite_movie}</Text>
-            </View>
-            <View style={style.column}>
-              <Text>Favorite Food:{"\n"}{person.favorite_food}</Text>
-            </View>
-          </View>
-          { person.matched &&
-            <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
-              <Text>Snap Chat Name:{"\n"}{person.snap_chat_name}</Text>
-            </View>
+      <Card
+        title={`${person.name.split(" ")[0]}`}>
+        <View style={{flex:1, alignItems: 'center'}}>
+          {(person.profile_picture && person.matched) ?
+            <Avatar
+              xlarge
+              rounded
+              source={{uri: person.profile_picture}}
+              containerStyle={{width: 100, height: 100}}
+              activeOpacity={0.7}
+            />
+            :
+            <Avatar
+              xlarge
+              rounded
+              icon={{name: 'user', type: 'entypo', size: 75}}
+              containerStyle={{width: 100, height: 100}}
+              activeOpacity={0.7}
+            />
           }
-          { person.matched &&
-            <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
-              <Text>Social Media:{"\n"}{person.social_media_link}</Text>
-            </View>
-          }
-          <View style={{flexDirection: 'row', paddingHorizontal: 10, paddingTop: 10}}>
-            <View style={style.column}>
-              <Text>Favorite Song:{"\n"}{person.favorite_song}</Text>
-            </View>
-            <View style={style.column}>
-              <Text>
-                Interested In:{"\n"}
-                {person.allow_male ? ' Male' : '' }
-                {person.allow_female ? ' Female' : '' }
-                {person.allow_other ? ' Other' : '' }
-              </Text>
-            </View>
-          </View>
         </View>
+        <ListItem
+          containerStyle={style.listView}
+          hideChevron={true}
+          title={
+            <View style={{flexDirection: 'row'}}>
+              <View style={style.row}>
+                <Text style={style.table_header}>Gender</Text>
+              </View>
+              <View style={style.row}>
+                <Text style={style.table_data}>{person.gender}</Text>
+              </View>
+            </View>
+          } />
+
+          <ListItem
+            containerStyle={style.listView}
+            hideChevron={true}
+            title={
+              <View style={{flexDirection: 'row'}}>
+                <View style={style.row}>
+                  <Text style={style.table_header}>Age</Text>
+                </View>
+                <View style={style.row}>
+                  <Text style={style.table_data}>{person.age}</Text>
+                </View>
+              </View>
+            } />
+          {person.job_title &&
+            <ListItem
+              containerStyle={style.listView}
+              hideChevron={true}
+              title={
+                <View style={{flexDirection: 'row'}}>
+                  <View style={style.row}>
+                    <Text style={style.table_header}>Job Title</Text>
+                  </View>
+                  <View style={style.row}>
+                    <Text style={style.table_data}>{person.job_title}</Text>
+                  </View>
+                </View>
+              } />
+          }
+          {person.school &&
+            <ListItem
+              containerStyle={style.listView}
+              hideChevron={true}
+              title={
+                <View style={{flexDirection: 'row'}}>
+                  <View style={style.row}>
+                    <Text style={style.table_header}>School</Text>
+                  </View>
+                  <View style={style.row}>
+                    <Text style={style.table_data}>{person.school}</Text>
+                  </View>
+                </View>
+              } />
+          }
+          <ListItem
+            containerStyle={style.listView}
+            hideChevron={true}
+            title={
+              <View style={{flexDirection: 'row'}}>
+                <View style={style.row}>
+                  <Text style={style.table_header}>Interested In</Text>
+                </View>
+                <View style={style.row}>
+                  <Text style={style.table_data}>
+                  {person.allow_male ? ' Males' : '' }
+                  {person.allow_female ? ' Females' : '' }
+                  {person.allow_other ? ' Others' : '' }
+                  </Text>
+                </View>
+              </View>
+            } />
+          <ListItem
+            containerStyle={style.listView}
+            hideChevron={true}
+            title={
+              <View style={{flexDirection: 'row'}}>
+                <View>
+                  <Text style={style.table_header}>About Me</Text>
+                  <Text numberOfLines={20}>{person.description}</Text>
+                </View>
+              </View>
+            } />
+          <ListItem
+            containerStyle={style.listView}
+            hideChevron={true}
+            title={
+              <View style={{flexDirection: 'row'}}>
+                <View>
+                  <Text style={style.table_header}>Interests</Text>
+                  <FlatList
+                    horizontal
+                    data={person.interests}
+                    renderItem={({ item: rowData }) => {
+                      return (
+                        <Button
+                          fontSize={14}
+                          titleStyle={{color: colors.main}}
+                          buttonStyle={style.interestButton}
+                          title={rowData} />
+                      );
+                    }}
+                    keyExtractor={(item, index) => index.toString()}
+                  />
+                </View>
+              </View>
+            } />
+        </Card>
+        <Text onPress={() => this.reportUser(current_match.data.user_id)} style={style.contact_link}>Report User</Text>
       </ScrollView>
     );
   }

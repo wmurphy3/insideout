@@ -3,13 +3,14 @@ import colors           from '*/views/components/atoms/Colors'
 export default {
   mainBackground: {
     backgroundColor: colors.background,
-    flex: 1
+    flex: 1,
+    padding: 20
   },
   button: {
     backgroundColor: colors.main,
     marginTop: 10,
-    width: '100%',
-    marginBottom: 10
+    padding: 5,
+    marginBottom: 40
   },
   centered: {
     justifyContent: 'center',
@@ -25,12 +26,13 @@ export default {
     borderBottomWidth: 1,
     borderColor: colors.border
   },
-  input: {
-    marginLeft: 20,
-    marginRight: 20
-  },
   select: {
     marginTop: 20,
     marginLeft: 20
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#86939e'
   }
 }

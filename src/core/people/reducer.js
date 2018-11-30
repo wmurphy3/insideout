@@ -3,7 +3,7 @@ import {
   PERSON_REQUESTED, PERSON_REQUESTED_SUCCESS, PERSON_REQUESTED_ERROR,
   PERSON_REPORTED, PERSON_REPORTED_SUCCESS, PERSON_REPORTED_ERROR
 } from './constants'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, findIndex } from 'lodash'
 
 const initial = {
   data: [],
@@ -38,11 +38,10 @@ export const peopleReducer = (state = initial, action) => {
       return { ...state, loading: true }
 
     case PERSON_REQUESTED_SUCCESS:
-      let d = action.data.data.attributes
       return {
         ...state,
         loading: false,
-        person: d
+        person: action.data.data.attributes
       }
 
     case PERSON_REQUESTED_ERROR:
@@ -56,6 +55,7 @@ export const peopleReducer = (state = initial, action) => {
 
       return {
         ...state,
+        loading: false,
         data: [
           ...state.data.slice(0, index),
           ...state.data.slice(index + 1)

@@ -1,6 +1,6 @@
 import { connect }                      from 'react-redux'
 import Component                        from '*/views/components/EditProfile'
-import { updateUser, saveImage }        from '*/core/user'
+import { updateUser }                   from '*/core/user'
 import { reduxForm }                    from 'redux-form'
 import { validate }                     from './validations'
 
@@ -20,7 +20,6 @@ const FormComponent = reduxForm({
 export default connect(
   mapStateToProps,
   {
-    updateUser,
-    saveImage
+    updateUser
   }
 )(FormComponent)
