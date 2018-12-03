@@ -1,3 +1,4 @@
+import validator from 'email-validator'
 export const validate = (values) => {
 
   const errors = {}
