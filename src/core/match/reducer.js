@@ -39,10 +39,9 @@ export const matchReducer = (state = initial, action) => {
 
     case MATCH_CREATED_SUCCESS:
       let match = {
-        id: action.data.id,
+        id: action.data.data.id,
         data: action.data.data.attributes
       }
-
       return { ...state, loading: false, current_match: match }
 
     case MATCH_CREATED_ERROR:

@@ -100,6 +100,7 @@ export default class MessageScreen extends Component {
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }))
+
     this.props.setMessage(messages[0], this.props.current_match.id, this.props.user.id)
   }
 

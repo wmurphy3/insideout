@@ -7,6 +7,7 @@ import { ListItem }                       from 'react-native-elements'
 import { MaterialIcons, Ionicons }        from '@expo/vector-icons'
 import NavigatorService                   from '*/utils/navigator'
 import { unsetUser }                      from '*/core/user'
+import Faqs                               from '*/views/components/atoms/Faqs'
 
 class Menu extends React.Component {
 
@@ -66,6 +67,13 @@ class Menu extends React.Component {
         <ListItem
           title="My Profile"
           onPress={() => this._pop('Profile')}
+          containerStyle={styles.listView}
+          titleStyle={{color: '#838383'}}
+          leftIcon={{name: "person", color: '#838383'}} />
+
+        <ListItem
+          title="FAQs"
+          onPress={() => this._pop('Faqs')}
           containerStyle={styles.listView}
           titleStyle={{color: '#838383'}}
           leftIcon={{name: "person", color: '#838383'}} />

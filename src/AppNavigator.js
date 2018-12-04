@@ -18,6 +18,7 @@ import EditProfile            from '*/views/containers/EditProfile'
 import TermsOfService         from '*/views/containers/TermsOfService'
 
 import Menu                   from '*/views/components/atoms/Menu'
+import Faqs                   from '*/views/components/atoms/Faqs'
 import colors                 from '*/views/components/atoms/Colors'
 import { Icon }               from 'react-native-elements'
 import style                  from './style'
@@ -66,7 +67,8 @@ const DrawerStack = DrawerNavigator({
   Dashboard:  { screen: Dashboard },
   Matches:    { screen: Matches },
   Login:      { screen: Login },
-  Profile:     { screen: Profile }
+  Profile:     { screen: Profile },
+  Faqs:       { screen: Faqs }
 }, {
   gesturesEnabled: false,
   contentComponent: Menu
