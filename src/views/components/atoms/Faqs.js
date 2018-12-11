@@ -51,9 +51,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch, props) => {
-  return {
-    logout: () => dispatch(unsetUser())
-  }
+  return {}
 };
 
 export default connect(

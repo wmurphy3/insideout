@@ -21,7 +21,7 @@ export const messageReducer = (state = initial, action) => {
         delete ret.attributes
         return ret
       })
-
+  
       return {
         ...state,
         loading: false,

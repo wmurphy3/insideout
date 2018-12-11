@@ -1,5 +1,5 @@
 import React, { Component }                 from 'react'
-import { Text, View, ScrollView }           from 'react-native'
+import { Text, View, ScrollView, RefreshControl }           from 'react-native'
 import moment                               from 'moment'
 import Spinner                              from '*/views/components/atoms/Spinner'
 import { ListItem, Card, Button }           from 'react-native-elements'
@@ -94,6 +94,16 @@ export default class DashboardScreen extends Component {
     }
   }
 
+  _renderRefreshControl() {
+    // Reload all data
+    return (
+      <RefreshControl
+        refreshing={this.props.people.loading}
+        onRefresh={() => this.props.getPeople(null, {page_number: 1})}
+      />
+    );
+  }
+
   render() {
     const { people } = this.props
 
@@ -103,6 +113,7 @@ export default class DashboardScreen extends Component {
     return (
       <ScrollView
         containerStyle={{marginBottom: 20, marginTop: 0}}
+        refreshControl={this._renderRefreshControl()}
         renderScrollComponent={props => <InfiniteScrollView horizontal={false} onLoadMoreAsync={this.loadMorePage}
         canLoadMore={this.state.canLoadMoreContent}
         distanceFromEnd={10} />}>

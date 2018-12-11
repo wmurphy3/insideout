@@ -75,7 +75,7 @@ export default class MessageScreen extends Component {
 
   messageOptions = () => {
     ActionSheetIOS.showActionSheetWithOptions({
-      options: ['Cancel', 'Block User', 'Next Step'],
+      options: ['Cancel', 'Block User'],
       destructiveButtonIndex: 1,
       cancelButtonIndex: 0,
     },
@@ -97,9 +97,9 @@ export default class MessageScreen extends Component {
   }
 
   onSend = (messages = []) => {
-    this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }))
+    // this.setState(previousState => ({
+    //   messages: GiftedChat.append(previousState.messages, messages),
+    // }))
 
     this.props.setMessage(messages[0], this.props.current_match.id, this.props.user.id)
   }
@@ -110,8 +110,11 @@ export default class MessageScreen extends Component {
         {...props}
         wrapperStyle={{
           left: {
-            backgroundColor: '#f0f0f0',
+            backgroundColor: '#ffffff',
+          }, right:{
+            backgroundColor: '#F05757',
           }
+
         }}
       />
     );

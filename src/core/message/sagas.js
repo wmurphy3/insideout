@@ -30,6 +30,7 @@ function* messageCreatedFlow(action) {
     yield put(messageCreateSuccess(match))
 
   } catch (error) {
+    console.log(error)
     yield put(messageCreateError(error))
   }
 }

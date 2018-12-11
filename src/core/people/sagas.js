@@ -3,7 +3,7 @@ import { PEOPLE_REQUESTED, PERSON_REQUESTED, PERSON_REPORTED }  from './constant
 import {
   getPeopleSuccess, getPeopleError, getPersonSuccess, getPersonError,
   reportUserSuccess, reportUserError
-} from './actions'
+}                                           from './actions'
 import { getAccessToken }                   from '*/core/user'
 import api                                  from './api'
 import { displaySuccess, displayError }     from '*/utils/toastr'

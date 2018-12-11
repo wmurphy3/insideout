@@ -25,7 +25,6 @@ export default class MatchesScreen extends Component {
   }
 
   goToMessage(i) {
-    console.log(i)
     this.props.setCurrentMatch(i)
   }
 
@@ -35,7 +34,6 @@ export default class MatchesScreen extends Component {
     if (matches.loading)
       return (<Spinner />)
 
-    console.log(matches.data)
     return (
       <ScrollView>
       {
@@ -43,7 +41,7 @@ export default class MatchesScreen extends Component {
           <ListItem
             key={i}
             title={match.name}
-            subtitle={`${match.age} yeard old`}
+            subtitle={`${match.age} years old`}
             onPress={() => this.goToMessage(i)}
             chevronColor='#e7eaec'
             chevron

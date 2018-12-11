@@ -6,7 +6,10 @@ const REPORT = `${REACT_APP_API_URL}/users`;
 
 export default {
   getPeople: (token, location, query) => {
-    return fetch(`${ENDPOINT}?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}&page_number=${"page_number" in query ? query["page_number"] : 1 }`, {
+    let url = `${ENDPOINT}?page_number=${"page_number" in query ? query["page_number"] : 1 }`
+    url += location ? `&latitude=${location.coords.latitude}&longitude=${location.coords.longitude}` : ``
+    
+    return fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
