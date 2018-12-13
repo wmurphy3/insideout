@@ -83,7 +83,7 @@ export const userReducer = (state = initial, action) => {
 
     case USER_UPDATED_SUCCESS:
       let user_data = action.data.data.attributes
-
+      console.log(user_data)
       return {
         ...state,
         loading: false,
@@ -93,12 +93,10 @@ export const userReducer = (state = initial, action) => {
         age: String(user_data.age),
         job_title: user_data.job_title,
         school: user_data.school,
-        social_media_link: user_data.social_media_link,
         gender: user_data.gender,
         allow_other: user_data.allow_other,
-        snap_chat_name: user_data.snap_chat_name,
         allow_male: user_data.allow_male,
-        interests: action.token.interests,
+        interests: action.interests,
         allow_female: user_data.allow_female
       }
 

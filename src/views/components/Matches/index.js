@@ -40,7 +40,7 @@ export default class MatchesScreen extends Component {
         matches.data.map((match, i) => (
           <ListItem
             key={i}
-            title={match.name}
+            title={match.name.split(" ")[0]}
             subtitle={`${match.age} years old`}
             onPress={() => this.goToMessage(i)}
             chevronColor='#e7eaec'

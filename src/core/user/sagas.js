@@ -92,6 +92,7 @@ function* userUpdatedFlow(action) {
     NavigatorService.navigate('Profile')
     displaySuccess('Profile updated')
   } catch (error) {
+    console.log(error)
     yield put(updateUserError(error))
     displayError(error.errors)
   }
