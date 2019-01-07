@@ -7,7 +7,7 @@ import { validate }                   from './validations'
 const mapStateToProps = (state, ownProps) => {
   return {
     // initialValues: {username: state.user.login_username},
-    initialValues: {username: 'wmurphy@ventanex.com', password: 'password'},
+    // initialValues: {username: 'wmurphy@ventanex.com', password: 'password'},
     user: state.user
   }
 }

@@ -51,7 +51,7 @@ class Menu extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <ListItem
-          title={"Dashboard"}
+          title={"Meet People"}
           onPress={() => this._pop('Dashboard')}
           containerStyle={styles.listView}
           titleStyle={{color: '#838383'}}
