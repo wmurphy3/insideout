@@ -39,7 +39,7 @@ const Into = (props) => {
           buttonStyle={style.button} />
 
         <Button
-          title="NEXT"
+          title="REGISTER"
           fontSize={16}
           borderRadius={5}
           onPress={handleSubmit}

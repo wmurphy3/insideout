@@ -10,7 +10,6 @@ import Description                          from './description'
 import Interests                            from './interests'
 import Work                                 from './work'
 import Into                                 from './into'
-import Card                                 from './card'
 
 export default class Register extends Component {
 
@@ -58,14 +57,13 @@ export default class Register extends Component {
             resizeMode="contain" />
         </View>
         <View style={{paddingHorizontal: 20, alignSelf: 'center', marginTop: 10}}>
-          <Text>{this.state.page} of 6 Complete</Text>
+          <Text>{this.state.page} of 5 Complete</Text>
         </View>
         { page === 1 && <General onSubmit={this.nextPage} /> }
         { page === 2 && <Description previousPage={this.previousPage} onSubmit={this.nextPage} /> }
         { page === 3 && <Interests previousPage={this.previousPage} onSubmit={this.nextPage} /> }
         { page === 4 && <Work previousPage={this.previousPage} onSubmit={this.nextPage} />}
-        { page === 5 && <Into previousPage={this.previousPage} onSubmit={this.nextPage} /> }
-        { page === 6 && <Card previousPage={this.previousPage} onSubmit={this.onRegister} setCard={this.setCard} cardValid={this.state.cardValid} />}
+        { page === 5 && <Into previousPage={this.previousPage} onSubmit={this.onRegister} /> }
 
         <Text style={style.link}>Already have an account? <Text onPress={() => this.goToLogin()} style={style.login_link}>Login</Text></Text>
       </View>
