@@ -4,7 +4,8 @@
     "icon": "./src/views/assets/mobile_logo.png",
     "name": "InsideOut",
     "slug": "insideout",
-    "version": "1.0.1",
+    "version": "1.0.3",
+    "orientation": "portrait",
     "ios": {
       "bundleIdentifier": "com.insideout.dev",
       "infoPlist": {
@@ -16,7 +17,8 @@
       },
     },
     "android": {
-      "package": "com.insideout.dev"
+      "package": "com.insideout.dev",
+      "versionCode": 3
     },
     "splash": {
       "image": "./src/views/assets/splash.png",

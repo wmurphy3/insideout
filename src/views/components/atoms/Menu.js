@@ -1,6 +1,6 @@
 import React                              from 'react'
 import { StyleSheet, Text, View,
-         ScrollView, ActionSheetIOS }     from 'react-native'
+         ScrollView }                     from 'react-native'
 import { connect }                        from 'react-redux'
 import { NavigationActions }              from 'react-navigation'
 import { ListItem }                       from 'react-native-elements'
@@ -8,7 +8,9 @@ import { MaterialIcons, Ionicons }        from '@expo/vector-icons'
 import NavigatorService                   from '*/utils/navigator'
 import { unsetUser }                      from '*/core/user'
 import Faqs                               from '*/views/components/atoms/Faqs'
+import { connectActionSheet }             from '@expo/react-native-action-sheet'
 
+@connectActionSheet
 class Menu extends React.Component {
 
   constructor(props, context) {
@@ -22,17 +24,22 @@ class Menu extends React.Component {
   logout = () => {
     const { logout } = this.props
 
-    ActionSheetIOS.showActionSheetWithOptions({
-      options: ['Cancel', 'Log Out'],
-      destructiveButtonIndex: 1,
-      cancelButtonIndex: 0,
-    },
-    (buttonIndex) => {
-      if (buttonIndex === 1) {
-        logout();
-        NavigatorService.reset('loginStack')
+    let options = ['Cancel', 'Log Out'];
+    let destructiveButtonIndex = 1;
+    let cancelButtonIndex = 0;
+    this.props.showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+        destructiveButtonIndex,
+      },
+      buttonIndex => {
+        if (buttonIndex === 1) {
+          logout();
+          NavigatorService.reset('loginStack')
+        }
       }
-    });
+    );
   }
 
   showProfile() {

@@ -1,5 +1,5 @@
 import React, { Component }               from 'react';
-import { AppRegistry, Text, Image, View } from 'react-native';
+import { AppRegistry, Text, Image, View, Linking } from 'react-native';
 import { Field }                          from 'redux-form'
 import FieldInput                         from '*/views/components/atoms/FieldInput'
 import CustomCheckBox                     from '*/views/components/atoms/CustomCheckBox'
@@ -37,7 +37,8 @@ export default class LoginScreen extends Component {
   }
 
   goToContactUs() {
-    NavigatorService.navigate('TermsOfService')
+    Linking.openURL('https://app.termly.io/document/terms-of-use-for-website/cb2dac70-a053-4352-baf0-e9b6b65b8139')
+    // NavigatorService.navigate('TermsOfService')
   }
 
   render() {
